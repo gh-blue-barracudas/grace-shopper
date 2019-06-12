@@ -9,7 +9,7 @@ async function seed() {
 
   const products = [
     {
-      productName: 'Season 8',
+      productName: 'GOT Dreams?',
       price: 500.00,
       description:
         'You construct the last season of Game of Thrones better than anyone could ever imagine, including yourself. Bonus, you wake up and actually remember parts of it to tell people.',
@@ -17,7 +17,7 @@ async function seed() {
       productType: 'dream'
     },
     {
-      productName: 'Caught in a Storm',
+      productName: 'Stormy',
       price: 3.00,
       description: `You’re on a boat, massive waves are crashing against the ship as a hurricane or massive storm approaches. Think scenes from ‘Adrift’ or ‘The Perfect Storm’ that you know ends in probable death(by drowning). Hopefully you’ll wake up before...`,
       imageUrl: 'https://i.imgur.com/HGzVGO2.jpg',
@@ -38,28 +38,28 @@ async function seed() {
       productType: 'nightmare'
     },
     {
-      productName: 'Earn Money without a Job',
+      productName: 'Free Money',
       price: 200.00,
       description: `You’re entering finals season in college when you realize you’re still enrolled in the class you thought you withdrew from at the start of semester. You speak to the professor who has no sympathy for you and tells you you have no choice but to take the exam as you’ve received zeros on all his other mandatory course assignments. You enter the dark, chilly exam room in hopes that the exam is multiple choice and you can get some points to only find out the whole exam is open-ended. The race against time is on where you futilely and anxiously try to save your already mediocre GPA.`,
       imageUrl: 'https://i.imgur.com/cyQM603.jpg',
       productType: 'dream'
     },
     {
-      productName: 'Developer: forget everything about programming',
+      productName: 'Waning Programming',
       price: 10.00,
       description: `This potion is very effective on making someone else forget all the knowledge s/he got through her/his entire life about programming. Also, this should be performed during a waning moon.`,
       imageUrl: 'https://i.imgur.com/Vu6CjEb.jpg',
       productType: 'nightmare'
     },
     {
-      productName: 'Thrown for a Loop',
+      productName: 'Infinite Loop',
       price: 3.00,
       description: `Your React Components aren’t rendering and you get thrown for an infinite recursive loop on the backsplash of VSC.`,
       imageUrl: 'https://i.imgur.com/2N3Hwp2.jpg',
       productType: 'nightmare'
     },
     {
-      productName: 'Cribs',
+      productName: 'Great Gatsby',
       price: 2000.00,
       description: `You have just bought the largest castle in New York and get to throw Great Gatsby-level house parties every evening without ever being hungover.`,
       imageUrl: 'https://i.imgur.com/WleyUdX.png',
