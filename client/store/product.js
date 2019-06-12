@@ -1,7 +1,4 @@
-import {createStore, applyMiddleware} from 'redux'
 import axios from 'axios'
-import loggingMiddleware from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
 
 //Action types
 const ALL_PRODUCTS = 'ALL PRODUCTS'
@@ -27,7 +24,7 @@ const initialState = {
 export const getProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/products')
+      const {data} = await axios.get('api/products')
       dispatch(gotProducts(data))
     } catch (error) {
       console.error(error)
@@ -38,7 +35,7 @@ export const getProducts = () => {
 export const getSelectedProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/products/${id}`)
+      const {data} = await axios.get(`api/products/${id}`)
       dispatch(gotSingleProduct(data))
     } catch (error) {
       console.error(error)
