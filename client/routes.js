@@ -33,12 +33,10 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            {/* Routes placed here are only available after logging in - should later add user profile page and order history here */}
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={Home} />
       </Switch>
     )
   }
