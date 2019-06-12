@@ -6,11 +6,13 @@ class Home extends React.Component {
   render() {
     return (
       <div className="main">
-        <Link to="/products">
-          <button type="button">All Products</button>
-        </Link>
-        <div className="body">
+        <div className="container">
           <img className="hero" src="https://i.imgur.com/pxpNYHB.png" />
+          <Link to="/products">
+            <button className="btn" type="button">
+              Shop All
+            </button>
+          </Link>
         </div>
         <div className="footer">
           <h1>This is the footer</h1>
