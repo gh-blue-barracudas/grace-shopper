@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Cart} = require('../db/models')
+const {User, Order, orderPrd} = require('../db/models')
 
 // router.get('/:userId', async (req, res, next) => {
 //   try {
@@ -19,7 +19,7 @@ const {User, Cart} = require('../db/models')
 // to add a cart
 router.post('/', async (req, res, next) => {
   try {
-    let cart = await Cart.create()
+    let cart = await Order.create({session: 'placeholderSession'})
     res.status(200).send(cart)
   } catch (error) {
     next(error)
@@ -27,37 +27,73 @@ router.post('/', async (req, res, next) => {
 })
 
 // to add products to the cart
-router.put('/:cartId/addProduct', async (req, res, next) => {
+router.put('/:orderId/addProduct', async (req, res, next) => {
   try {
-    const [numberOfAffectedRows, affectedRows] = await Cart.update(
-      {id: req.params.cartId},
-      {where: {products: req.body.products}, returning: true, plain: true}
-    )
-    res.status(200).send(affectedRows[0])
+    // Find order
+    let order = await orderPrd.findOne({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.body.productId
+      }
+    })
+    // Check if there is a row in the orderPrd table where this order is associated with the productId that we're sending in the req.body
+    if (order) {
+      await order.update({quantity: order.quantity + 1})
+      res.status(202).send(order)
+    } else {
+      let newOrderRow = await orderPrd.create({
+        productId: req.body.productId,
+        orderId: req.params.orderId,
+        quantity: 1
+      })
+      res.status(202).send(newOrderRow)
+    }
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/:cartId/deleteProduct', async (req, res, next) => {
+router.put('/:orderId/deleteProduct', async (req, res, next) => {
   try {
-    //
+    let order = await orderPrd.findOne({
+      where: {orderId: req.params.orderId, productId: req.body.productId}
+    })
+    if (order) {
+      order.destroy()
+      res.status(202).send('deleted!')
+    } else {
+      next()
+    }
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/:cartId/editProdQuantity', async (req, res, next) => {
+router.put('/:orderId/editProdQuantity', async (req, res, next) => {
   try {
-    //
+    let order = await orderPrd.findOne({
+      where: {orderId: req.params.orderId, productId: req.body.productId}
+    })
+    if (order) {
+      order.update({quantity: req.body.quantity})
+      res.status(202).send(order)
+    } else {
+      next()
+    }
   } catch (error) {
     next(error)
   }
 })
 
-router.delete('/:cartId', async (req, res, next) => {
+// for when user has placed order - edit status of order route
+router.put('/:orderId/completedOrder', async (req, res, next) => {
   try {
-    //
+    let order = await Order.findByPk(req.params.orderId)
+    if (order) {
+      order.update({completed: true})
+    } else {
+      next()
+    }
   } catch (error) {
     next(error)
   }
