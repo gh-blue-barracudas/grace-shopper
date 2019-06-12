@@ -10,9 +10,9 @@ const gotProducts = products => ({
   products
 })
 
-const gotSingleProduct = product => ({
+const gotSingleProduct = selectedProduct => ({
   type: SELECTED_PRODUCT,
-  product
+  selectedProduct
 })
 
 //Initial State
@@ -24,7 +24,7 @@ const initialState = {
 export const getProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('api/products')
+      const {data} = await axios.get('/api/products')
       dispatch(gotProducts(data))
     } catch (error) {
       console.error(error)
@@ -35,7 +35,7 @@ export const getProducts = () => {
 export const getSelectedProduct = id => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`api/products/${id}`)
+      const {data} = await axios.get(`/api/products/${id}`)
       dispatch(gotSingleProduct(data))
     } catch (error) {
       console.error(error)
@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
     case ALL_PRODUCTS:
       return {...state, products: action.products}
     case SELECTED_PRODUCT:
-      return {...state, selectedProduct: action.product}
+      return {...state, selectedProduct: action.selectedProduct}
     default:
       return state
   }

@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.getProducts()
+    console.log(this.props.products)
   }
   render() {
     const products = this.props.products
