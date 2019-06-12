@@ -10,7 +10,7 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -19,10 +19,10 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: "https://www.livescience.com/63459-dream-genes-rem-sleep.html"
+    defaultValue: 'https://www.livescience.com/63459-dream-genes-rem-sleep.html'
   },
   description: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
   },
   productType: {
     type: Sequelize.ENUM('dream', 'nightmare')
