@@ -24,6 +24,8 @@ form div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-left: 130px;
+  margin-top: 75px;
 }
 
 .product_image {
@@ -40,4 +42,12 @@ form div {
   flex-direction: row;
   border: 1px solid lightblue;
   border-radius: 10px;
+}
+
+.product_child {
+  flex: 1 1 25%;
+}
+
+.product_child + .product_child {
+  margin-top: 20px;
 }
