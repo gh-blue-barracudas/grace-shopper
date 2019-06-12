@@ -9,12 +9,12 @@ class Home extends React.Component {
         <div className="header">
           <h1>This is Home</h1>
         </div>
-        <Link to="/products" />
-        <button type="button">All Products</button>
+        <Link to="/products">
+          <button type="button">All Products</button>
+        </Link>
         <div className="body">
           <img className="hero" src="https://i.imgur.com/pxpNYHB.png" />
         </div>
-        <AllProducts />
         <div className="footer">
           <h1>This is the footer</h1>
         </div>
