@@ -7,8 +7,9 @@ class AllProducts extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({})
+// const mapStateToProps = state => ({})
 
-const mapDispatchToProps = (dispatch, ownProps) => ({})
+// const mapDispatchToProps = (dispatch, ownProps) => ({})
 
-export default connect(mapStateToDispatch, mapDispatchToProps)(AllProducts)
+// export default connect(mapStateToDispatch, mapDispatchToProps)(AllProducts)
+export default AllProducts
