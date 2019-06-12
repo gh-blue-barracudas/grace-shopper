@@ -1,19 +1,13 @@
 const router = require('express').Router()
-const {User, Order, orderPrd} = require('../db/models')
+const {Order, orderPrd} = require('../db/models')
 
-// router.get('/:userId', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.userId, {
-//       include: {model: Cart}
-//     })
-//     if (user.cartId) {
-//       req.status(200).send(await Cart.findByPk(user.cartId))
-//     } else {
-//       // let newCart = Cart.create()
-//     }
-//   } catch (error) {
-//     next(error)
-//   }
+// to get persistant cart
+// router.get('/:orderId', async (req,res,next) => {
+// try {
+//
+// } catch (error) {
+//   next(error)
+// }
 // })
 
 // to add a cart
@@ -39,15 +33,20 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
     // Check if there is a row in the orderPrd table where this order is associated with the productId that we're sending in the req.body
     if (order) {
       await order.update({quantity: order.quantity + 1})
-      res.status(202).send(order)
     } else {
-      let newOrderRow = await orderPrd.create({
+      await orderPrd.create({
         productId: req.body.productId,
         orderId: req.params.orderId,
         quantity: 1
       })
-      res.status(202).send(newOrderRow)
     }
+    const allOrders = await orderPrd.findAll({
+      where: {
+        orderId: req.params.orderId
+      }
+    })
+    console.log(allOrders)
+    res.status(202).send(allOrders)
   } catch (error) {
     next(error)
   }
@@ -60,7 +59,12 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
     })
     if (order) {
       order.destroy()
-      res.status(202).send('deleted!')
+      const allOrders = await orderPrd.findAll({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+      res.status(202).send(allOrders)
     } else {
       next()
     }
@@ -75,8 +79,13 @@ router.put('/:orderId/editProdQuantity', async (req, res, next) => {
       where: {orderId: req.params.orderId, productId: req.body.productId}
     })
     if (order) {
-      order.update({quantity: req.body.quantity})
-      res.status(202).send(order)
+      await order.update({quantity: req.body.quantity})
+      const allOrders = await orderPrd.findAll({
+        where: {
+          orderId: req.params.orderId
+        }
+      })
+      res.status(202).send(allOrders)
     } else {
       next()
     }
@@ -90,7 +99,8 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
-      order.update({completed: true})
+      await order.update({completed: true})
+      res.status(202).send('completed')
     } else {
       next()
     }
