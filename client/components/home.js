@@ -6,9 +6,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="main">
-        <div className="header">
-          <h1>This is Home</h1>
-        </div>
         <Link to="/products">
           <button type="button">All Products</button>
         </Link>

@@ -52,7 +52,7 @@ export const createCart = () => {
 export const addProd = (cartId, prodId) => {
   return async dispatch => {
     try {
-      const {dataValues} = await Axios.put(`api/carts/${cartId}/addProduct`, {
+      const {dataValues} = await Axios.put(`/api/carts/${cartId}/addProduct`, {
         productId: prodId
       })
       dispatch(addedProd(dataValues))
