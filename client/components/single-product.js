@@ -13,12 +13,12 @@ class SingleProduct extends Component {
   }
   async handleSubmit(evt) {
     evt.preventDefault()
-    console.log('the button is working!')
     try {
-      const cart = this.props.cart
+      const id = this.props.id
       const product = this.props.selectedProduct
-      if (cart) {
-        this.props.addProd(cart.id, product.id)
+      if (id) {
+        this.props.addProd(id, product.id)
+        console.log(this.props)
       } else {
         await this.props.createCart()
         this.props.addProd(this.props.id, product.id)
@@ -29,7 +29,7 @@ class SingleProduct extends Component {
   }
   render() {
     return this.props.selectedProduct ? (
-      <div>
+      <div className="selected_product_parent">
         <img src={this.props.selectedProduct.imageUrl} />
         <div>
           <h1>{this.props.selectedProduct.productName}</h1>
