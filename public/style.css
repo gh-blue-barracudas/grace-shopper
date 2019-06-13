@@ -76,6 +76,7 @@ i {
   justify-content: space-around;
   margin-left: 130px;
   margin-top: 75px;
+  color: white;
 }
 
 .product_image {
@@ -161,4 +162,8 @@ select {
   background-color: #615757;
   color: white;
   border: #615757;
+}
+
+.selected_product_parent {
+  background: white;
 }
