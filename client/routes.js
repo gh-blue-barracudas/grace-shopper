@@ -10,7 +10,9 @@ import {
   AllProducts,
   SingleProduct,
   ConnectedCart,
-  OrderConfirm
+  OrderConfirm,
+  NotFound,
+  AboutUs
 } from './components'
 import {me} from './store'
 
@@ -38,12 +40,14 @@ class Routes extends Component {
           <Route path="/cart" component={ConnectedCart} />
           <Route path="/complete" component={OrderConfirm} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/about" component={AboutUs} />
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in - should later add user profile page and order history here */}
             </Switch>
           )}
           <Route path="/login" component={Login} />
+          <Route component={NotFound} />
         </Switch>
       </div>
     )
