@@ -11,14 +11,14 @@ class SingleProduct extends Component {
   componentDidMount() {
     this.props.getSelectedProduct(this.props.match.params.id)
   }
-
   async handleSubmit(evt) {
     evt.preventDefault()
     try {
-      const cart = this.props.cart
+      const id = this.props.id
       const product = this.props.selectedProduct
-      if (cart) {
-        this.props.addProd(cart.id, product.id)
+      if (id) {
+        this.props.addProd(id, product.id)
+        console.log(this.props)
       } else {
         await this.props.createCart()
         this.props.addProd(this.props.id, product.id)

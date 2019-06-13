@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
+  Checkout,
   Home,
   AllProducts,
   SingleProduct,
@@ -36,7 +37,7 @@ class Routes extends Component {
           <Route path="/products/:id/cart" component={ConnectedCart} />
           <Route path="/cart" component={ConnectedCart} />
           <Route path="/complete" component={OrderConfirm} />
-
+          <Route path="/checkout" component={Checkout} />
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in - should later add user profile page and order history here */}
