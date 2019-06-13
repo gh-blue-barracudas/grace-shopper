@@ -7,7 +7,13 @@ class Cart extends Component {
     // this.props.THUNKPLACEHOLDER
   }
   render() {
-    return this.props.cart ? <div /> : <div>no product</div>
+    return this.props.cart ? (
+      <div>this is the cart</div>
+    ) : (
+      <div>
+        <h1>No Products to Show</h1>
+      </div>
+    )
   }
 }
 

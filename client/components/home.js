@@ -9,6 +9,7 @@ class Home extends React.Component {
         <div className="container">
           <img className="hero" src="https://i.imgur.com/pxpNYHB.png" />
           <Link to="/products">
+            <h1>what dreams are made of</h1>
             <button className="btn" type="button">
               Shop All
             </button>
