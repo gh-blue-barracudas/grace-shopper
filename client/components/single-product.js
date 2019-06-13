@@ -11,17 +11,17 @@ class SingleProduct extends Component {
   componentDidMount() {
     this.props.getSelectedProduct(this.props.match.params.id)
   }
-  handleSubmit(evt) {
+
+  async handleSubmit(evt) {
     evt.preventDefault()
-    console.log('the button is working!')
     try {
       const cart = this.props.cart
       const product = this.props.selectedProduct
-      if (cart.id) {
+      if (cart) {
         this.props.addProd(cart.id, product.id)
       } else {
-        this.props.createCart()
-        this.props.addProd(cart.id, product.id)
+        await this.props.createCart()
+        this.props.addProd(this.props.id, product.id)
       }
     } catch (error) {
       console.error(error)
@@ -29,13 +29,13 @@ class SingleProduct extends Component {
   }
   render() {
     return this.props.selectedProduct ? (
-      <div>
+      <div className="selected_product_parent">
         <img src={this.props.selectedProduct.imageUrl} />
         <div>
           <h1>{this.props.selectedProduct.productName}</h1>
           <h2>{this.props.selectedProduct.price}</h2>
           <p>{this.props.selectedProduct.description}</p>
-          <button onSubmit={this.handleSubmit} type="submit">
+          <button onClick={this.handleSubmit} type="submit">
             Add to Cart
           </button>
         </div>
@@ -50,6 +50,7 @@ class SingleProduct extends Component {
 
 const mapStateProps = state => {
   return {
+    id: state.cart.id,
     cart: state.cart.cart,
     selectedProduct: state.product.selectedProduct
   }

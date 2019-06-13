@@ -41,8 +41,8 @@ const completedCart = () => ({
 export const createCart = () => {
   return async dispatch => {
     try {
-      const {dataValues} = await Axios.post('/api/carts/')
-      dispatch(createdCart(dataValues.id))
+      const {data} = await Axios.post('/api/carts/')
+      dispatch(createdCart(data.id))
     } catch (error) {
       console.log('Error creating cart: ', error)
     }
@@ -52,10 +52,10 @@ export const createCart = () => {
 export const addProd = (cartId, prodId) => {
   return async dispatch => {
     try {
-      const {dataValues} = await Axios.put(`/api/carts/${cartId}/addProduct`, {
+      const {data} = await Axios.put(`/api/carts/${cartId}/addProduct`, {
         productId: prodId
       })
-      dispatch(addedProd(dataValues))
+      dispatch(addedProd(data))
     } catch (error) {
       console.log('Error adding product: ', error)
     }
@@ -65,11 +65,10 @@ export const addProd = (cartId, prodId) => {
 export const deleteProd = (cartId, prodId) => {
   return async dispatch => {
     try {
-      const {dataValues} = await Axios.put(
-        `api/carts/${cartId}/deleteProduct`,
-        {productId: prodId}
-      )
-      dispatch(deletedProd(dataValues))
+      const {data} = await Axios.put(`api/carts/${cartId}/deleteProduct`, {
+        productId: prodId
+      })
+      dispatch(deletedProd(data))
     } catch (error) {
       console.log('Error deleting product: ', error)
     }
@@ -79,11 +78,11 @@ export const deleteProd = (cartId, prodId) => {
 export const editProdQuant = (cartId, prodId, quantity) => {
   return async dispatch => {
     try {
-      const {dataValues} = await Axios.put(
-        `api/carts/${cartId}/editProdQuantity`,
-        {productId: prodId, quantity}
-      )
-      dispatch(editedProdQuantity(dataValues))
+      const {data} = await Axios.put(`api/carts/${cartId}/editProdQuantity`, {
+        productId: prodId,
+        quantity
+      })
+      dispatch(editedProdQuantity(data))
     } catch (error) {
       console.log('Error editing quantity: ', error)
     }
