@@ -7,8 +7,29 @@ class Cart extends Component {
     // this.props.THUNKPLACEHOLDER
   }
   render() {
+    const cart = this.props.cart
     return this.props.cart ? (
-      <div>This is the cart</div>
+      <div>
+        <h3>Cart</h3>
+        <div>
+          <table>
+            <tbody>
+              <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>T</th>
+              </tr>
+              {cart.map(cartItem => (
+                <tr key={cartItem.id}>
+                  <td>{cartItem.productName}</td>
+                  <td>{cartItem.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     ) : (
       <div>
         <h1>No Products to Show</h1>
@@ -20,7 +41,8 @@ class Cart extends Component {
 const mapStateProps = state => {
   return {
     id: state.cart.id,
-    cart: state.cart.cart
+    cart: state.cart.cart,
+    selectedProduct: state.product.selectedProduct
   }
 }
 
