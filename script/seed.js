@@ -72,20 +72,8 @@ async function seed() {
       return Product.create(product)
     })
   )
-  const users = await Promise.all([
-    User.create({
-      email: 'bluebarracudas@gmail.com',
-      firstName: 'Blue',
-      lastName: 'Barracudas'
-    }),
-    User.create({
-      email: 'graceshopper@hotmail.com',
-      firstName: 'Grace',
-      lastName: 'Shopper'
-    })
-  ])
+
   console.log(`seeded ${products.length} products`)
-  console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
 }
 

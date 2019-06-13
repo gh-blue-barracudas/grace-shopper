@@ -45,7 +45,6 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
         orderId: req.params.orderId
       }
     })
-    console.log(allOrders)
     res.status(202).send(allOrders)
   } catch (error) {
     next(error)
