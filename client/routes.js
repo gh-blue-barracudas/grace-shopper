@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   Checkout,
   Home,
   AllProducts,
   SingleProduct,
-  ConnectedCart
+  ConnectedCart,
+  OrderConfirm
 } from './components'
 import {me} from './store'
 
@@ -36,6 +36,7 @@ class Routes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route path="/products/:id/cart" component={ConnectedCart} />
           <Route path="/cart" component={ConnectedCart} />
+          <Route path="/complete" component={OrderConfirm} />
           <Route path="/checkout" component={Checkout} />
           {isLoggedIn && (
             <Switch>
