@@ -6,6 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
+  Checkout,
   Home,
   AllProducts,
   SingleProduct,
@@ -35,6 +36,7 @@ class Routes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route path="/products/:id/cart" component={ConnectedCart} />
           <Route path="/cart" component={ConnectedCart} />
+          <Route path="/checkout" component={Checkout} />
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in - should later add user profile page and order history here */}
