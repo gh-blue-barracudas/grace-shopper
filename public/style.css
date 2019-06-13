@@ -83,6 +83,7 @@ i {
   justify-content: space-around;
   margin-left: 130px;
   margin-top: 75px;
+  color: white;
 }
 
 .product_image {
@@ -152,4 +153,8 @@ i {
 .nav_bar_child a {
   color: white;
   font-size: 21px;
+}
+
+.selected_product_parent {
+  background: white;
 }

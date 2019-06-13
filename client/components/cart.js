@@ -8,7 +8,7 @@ class Cart extends Component {
   }
   render() {
     return this.props.cart ? (
-      <div>this is the cart</div>
+      <div>This is the cart</div>
     ) : (
       <div>
         <h1>No Products to Show</h1>
