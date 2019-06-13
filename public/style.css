@@ -1,11 +1,32 @@
 body {
-  font-family: 'Acme';
   background-color: #292929;
+}
+
+p {
+  font-family: ‘Roboto’, sans-serif;
   color: white;
+  opacity: 80%;
+  font-weight: 100;
+}
+
+h1 {
+  font-family: 'Poiret One', cursive;
+  color: white;
+  opacity: 96%;
+  font-weight: 100;
+}
+
+h2 {
+  font-family: ‘Roboto’, sans-serif;
+  color: white;
+  opacity: 96%;
+  font-weight: 100;
 }
 
 a {
+  font-family: ‘Roboto’, sans-serif;
   text-decoration: none;
+  color: #707070;
 }
 
 label {
@@ -15,6 +36,24 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.navImg {
+  width: 25vw;
+}
+
+.nav_link {
+  color: #292929;
+  font-size: 24px;
+  font-weight: 200;
+}
+
+.footer_parent {
+  background-color: #d0c9ff;
+  opacity: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 form div {
@@ -28,9 +67,13 @@ i {
 }
 
 /* HOMEPAGE */
-.container {
-  position: relative;
-  width: 100%;
+#main {
+  background-image: url('https://i.imgur.com/pxpNYHB.png') no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .hero {
@@ -55,12 +98,15 @@ i {
 }
 
 .container .btn:hover {
-  background-color: black;
+  background-color: #fff2ab;
+  opacity: 50%;
 }
 
 .container h1 {
+  font-family: ‘Noto Serif KR’, serif;
   position: absolute;
-  color: white;
+  color: #d0c9ff;
+  opacity: 96%;
   font-size: 88px;
   font-weight: 400;
   top: 30%;
@@ -71,12 +117,24 @@ i {
 /* PRODUCT PAGE */
 
 .product_parent {
+  margin: 5vw;
+  width: 90vw;
+  height: auto;
+  display: grid;
+  grid-gap: 50px 50px;
+  grid-template-columns: repeat(4, auto [col-start]);
+}
+
+.product_card {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-left: 130px;
-  margin-top: 75px;
-  color: white;
+  flex-direction: column;
+  background-color: #fcdada;
+  opacity: 50%;
+  align-items: center;
+}
+
+.product_btn {
+  width: 200%;
 }
 
 .product_image {
@@ -139,13 +197,12 @@ i {
   display: flex;
 }
 
-.nav_bar_child + .nav_bar_child {
-  margin-left: 20px;
-}
-
-.nav_bar_child a {
+.nav_bar_child {
+  margin: 0px 10px 0px 10px;
+  font-family: 'Poiret One', cursive;
   color: white;
-  font-size: 21px;
+  opacity: 50%;
+  font-size: 20px;
 }
 
 .checkout {
@@ -164,6 +221,18 @@ select {
   border: #615757;
 }
 
-.selected_product_parent {
-  background: white;
+#selected_product_parent {
+  display: flex;
+}
+
+#sel_info {
+  display: flex;
+  flex-direction: column;
+}
+
+#selImage {
+  max-width: 50vw;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
 }

@@ -2,6 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getProducts} from '../store/product'
 import {Link} from 'react-router-dom'
+import Card from '@material-ui/core/Card'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -12,19 +15,24 @@ class AllProducts extends React.Component {
     return (
       <div className="product_parent">
         {products.map(product => (
-          <div className="product_child" key={product.id}>
-            <div>
-              <Link to={`/products/${product.id}`}>
+          <Card key={product.id} className="product_card">
+            <Link to={`/products/${product.id}`}>
+              <CardMedia
+                component="img"
+                alt={`${product.productName}`}
+                height="auto"
+                image={`${product.imageUrl}`}
+                title={`${product.productName}`}
+                className="product_card"
+              />
+              {/* <Link to={`/products/${product.id}`}>
                 <img className="product_image" src={product.imageUrl} />
-              </Link>
-            </div>
-            <div className="product_info">
-              <Link to={`/products/${product.id}`}>
-                <h3>{product.productName}</h3>
-              </Link>
-              <h3>{product.price}</h3>
-            </div>
-          </div>
+              </Link> */}
+            </Link>
+            <Button color="secondary" className="product_btn">
+              <Link to={`/products/${product.id}`}>{product.productName}</Link>
+            </Button>
+          </Card>
         ))}
       </div>
     )
