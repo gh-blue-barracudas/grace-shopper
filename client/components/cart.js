@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteProd, editProdQuant} from '../store/cart'
+import {deleteProd, editProdQuant, cartProd} from '../store/cart'
+import {EmptyCart} from './emptycart'
 
 class Cart extends Component {
   componentDidMount() {
-    // this.props.THUNKPLACEHOLDER
+    console.log(this.props.match.params.id)
+    this.props.cartProd(this.props.match.params.id)
   }
   render() {
     const cart = this.props.cart
+    console.log('this is the cart', this.props)
     return this.props.cart ? (
       <div>
         <h3>Cart</h3>
@@ -22,8 +25,8 @@ class Cart extends Component {
               </tr>
               {cart.map(cartItem => (
                 <tr key={cartItem.id}>
-                  <td>{cartItem.productName}</td>
-                  <td>{cartItem.price}</td>
+                  <td>{cartItem.products.productName}</td>
+                  <td>{cartItem.products.price}</td>
                 </tr>
               ))}
             </tbody>
@@ -31,9 +34,7 @@ class Cart extends Component {
         </div>
       </div>
     ) : (
-      <div>
-        <h1>No Products to Show</h1>
-      </div>
+      <div>No Cart</div>
     )
   }
 }
@@ -47,6 +48,7 @@ const mapStateProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  cartProd: cart => dispatch(cartProd(cart)),
   deleteProd: (cartId, prodId) => dispatch(deleteProd(cartId, prodId)),
   editProdQuant: (cartId, prodId, quantity) =>
     dispatch(editProdQuant(cartId, prodId, quantity))

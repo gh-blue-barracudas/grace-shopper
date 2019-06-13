@@ -54,11 +54,13 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
         quantity: 1
       })
     }
-    const allOrders = await orderPrd.findAll({
+    let allOrders = await Order.findAll({
       where: {
-        orderId: req.params.orderId
-      }
+        id: req.params.orderId
+      },
+      include: [{model: Product}]
     })
+
     res.status(202).send(allOrders)
   } catch (error) {
     next(error)
@@ -72,10 +74,11 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
     })
     if (order) {
       order.destroy()
-      const allOrders = await orderPrd.findAll({
+      let allOrders = await Order.findAll({
         where: {
-          orderId: req.params.orderId
-        }
+          id: req.params.orderId
+        },
+        include: [{model: Product}]
       })
       res.status(202).send(allOrders)
     } else {
@@ -93,10 +96,11 @@ router.put('/:orderId/editProdQuantity', async (req, res, next) => {
     })
     if (order) {
       await order.update({quantity: req.body.quantity})
-      const allOrders = await orderPrd.findAll({
+      let allOrders = await Order.findAll({
         where: {
-          orderId: req.params.orderId
-        }
+          id: req.params.orderId
+        },
+        include: [{model: Product}]
       })
       res.status(202).send(allOrders)
     } else {
