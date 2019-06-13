@@ -4,6 +4,7 @@
  * having to figure out which file they belong to!
  */
 
+export {default as ConnectedCart} from './cart'
 export {default as AllProducts} from './all-products'
 export {default as SingleProduct} from './single-product'
 export {default as Home} from './home'
