@@ -99,6 +99,7 @@ i {
   flex-direction: row;
   border: 1px solid lightblue;
   border-radius: 10px;
+  color: white;
 }
 
 .product_info h3 {
