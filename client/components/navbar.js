@@ -8,7 +8,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="nav_bar_parent">
     <div className="nav_bar_logo">
       <Link to="/">
-        <h1>GraceShopper</h1>
+        <div>
+          <img src="https://i.imgur.com/LGuTXqS.png" />
+        </div>
       </Link>
     </div>
     <div className="nav_bar_items">
