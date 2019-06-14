@@ -25,19 +25,34 @@ const User = db.define('user', {
       return () => this.getDataValue('password')
     }
   },
-  address: {
+  billingAddress1: {
     type: Sequelize.STRING
   },
-  address2: {
+  billingAddress2: {
     type: Sequelize.STRING
   },
-  city: {
+  billingCity: {
     type: Sequelize.STRING
   },
-  state: {
+  billingState: {
     type: Sequelize.STRING
   },
-  zip: {
+  billingZip: {
+    type: Sequelize.INTEGER
+  },
+  shippingAddress1: {
+    type: Sequelize.STRING
+  },
+  shippingAddress2: {
+    type: Sequelize.STRING
+  },
+  shippingCity: {
+    type: Sequelize.STRING
+  },
+  shippingState: {
+    type: Sequelize.STRING
+  },
+  shippingZip: {
     type: Sequelize.INTEGER
   },
   salt: {
