@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteProd, editProdQuant} from '../store/cart'
+import {deleteProd, editProdQuant, getCart} from '../store/cart'
 import {EmptyCart} from './emptycart'
 
 class Cart extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
+  }
+  componentDidMount() {
+    this.props.getCart()
   }
   handleClick(id, cartItem) {
     this.props.deleteProd(id, cartItem)
@@ -77,7 +80,8 @@ const mapStateProps = state => {
 const mapDispatchToProps = dispatch => ({
   deleteProd: (cartId, prodId) => dispatch(deleteProd(cartId, prodId)),
   editProdQuant: (cartId, prodId, quantity) =>
-    dispatch(editProdQuant(cartId, prodId, quantity))
+    dispatch(editProdQuant(cartId, prodId, quantity)),
+  getCart: () => dispatch(getCart())
 })
 
 const ConnectedCart = connect(mapStateProps, mapDispatchToProps)(Cart)
