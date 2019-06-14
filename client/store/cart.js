@@ -5,6 +5,7 @@ const ADD_PROD = 'ADD_PROD'
 const DELETE_PROD = 'DELETE_PROD'
 const EDIT_PROD_QUANT = 'EDIT_PROD_QUANT'
 const COMP_CHCKOUT = 'COMP_CHCKOUT'
+const GET_CART = 'GET_CART'
 
 // Action Creators
 
@@ -30,6 +31,12 @@ const editedProdQuantity = cart => ({
 
 const completedCart = () => ({
   type: COMP_CHCKOUT
+})
+
+const gotCart = (cart, id) => ({
+  type: GET_CART,
+  cart,
+  id
 })
 
 // Thunk Creators
@@ -61,7 +68,7 @@ export const addProd = (cartId, prodId) => {
 export const deleteProd = (cartId, prodId) => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`api/carts/${cartId}/deleteProduct`, {
+      const {data} = await Axios.put(`/api/carts/${cartId}/deleteProduct`, {
         productId: prodId
       })
       dispatch(deletedProd(data))
@@ -74,7 +81,7 @@ export const deleteProd = (cartId, prodId) => {
 export const editProdQuant = (cartId, prodId, quantity) => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`api/carts/${cartId}/editProdQuantity`, {
+      const {data} = await Axios.put(`/api/carts/${cartId}/editProdQuantity`, {
         productId: prodId,
         quantity
       })
@@ -88,10 +95,21 @@ export const editProdQuant = (cartId, prodId, quantity) => {
 export const completeCheckout = cartId => {
   return async dispatch => {
     try {
-      await Axios.put(`api/carts/${cartId}/completedOrder`)
+      await Axios.put(`/api/carts/${cartId}/completedOrder`)
       dispatch(completedCart())
     } catch (error) {
       console.log('Error deleting cart: ', error)
+    }
+  }
+}
+
+export const getCart = () => {
+  return async dispatch => {
+    try {
+      const {data} = await Axios.get(`/api/carts`)
+      dispatch(gotCart(data, data[0].id))
+    } catch (error) {
+      console.log('Error retrieving cart: ', error)
     }
   }
 }
@@ -114,6 +132,8 @@ export default function(state = defaultCart, action) {
       return {...state, cart: action.cart}
     case COMP_CHCKOUT:
       return defaultCart
+    case GET_CART:
+      return {...state, cart: action.cart, id: action.id}
     default:
       return state
   }

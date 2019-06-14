@@ -2,13 +2,19 @@ const router = require('express').Router()
 const {Order, orderPrd, Product} = require('../db/models')
 
 // to get persistant cart
-// router.get('/:orderId', async (req,res,next) => {
-// try {
-//
-// } catch (error) {
-//   next(error)
-// }
-// })
+router.get('/', async (req, res, next) => {
+  try {
+    let allOrders = await Order.findAll({
+      where: {
+        session: req.sessionID
+      },
+      include: [{model: Product}]
+    })
+    res.status(200).send(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
 
 // to add a cart
 router.post('/', async (req, res, next) => {
