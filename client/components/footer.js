@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 
 const Footer = () => {
   return (
-    <AppBar position="static" color="default">
+    <AppBar id="footerBar" position="sticky" color="default">
       <div className="footer_parent">
         <Link to="/about" className="nav_link">
           ABOUT

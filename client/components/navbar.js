@@ -6,7 +6,13 @@ import {logout} from '../store'
 import AppBar from '@material-ui/core/AppBar'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <AppBar position="static" color="default">
+  <AppBar
+    position="sticky"
+    style={{
+      opacity: '50%',
+      backgroundColor: '#292929'
+    }}
+  >
     <div className="nav_bar_parent">
       <div className="nav_bar_logo">
         <Link to="/">
@@ -19,10 +25,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <div className="nav_bar_item">
             {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
+            <Link to="/home">
+              <div className="nav_bar_child">home</div>
+            </Link>
+            <a href="#" onClick={handleClick} className="nav_bar_child">
               logout
             </a>
+            <Link to="/cart">
+              <div className="nav_bar_child">cart </div>
+            </Link>
           </div>
         ) : (
           <div className="nav_bar_item">

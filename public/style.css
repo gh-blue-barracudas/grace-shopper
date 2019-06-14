@@ -47,7 +47,10 @@ nav a {
   font-size: 24px;
   font-weight: 200;
 }
-
+#footerBar {
+  display: flex;
+  flex-shrink: 0;
+}
 .footer_parent {
   background-color: #d0c9ff;
   opacity: 30%;
@@ -119,7 +122,6 @@ i {
 .product_parent {
   margin: 5vw;
   width: 90vw;
-  height: auto;
   display: grid;
   grid-gap: 50px 50px;
   grid-template-columns: repeat(4, auto [col-start]);
@@ -167,10 +169,12 @@ i {
 }
 
 .nav_bar_parent {
-  background: rgba(0, 0, 0, 0.76);
+  background: #292929;
+  opacity: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 10px;
 }
 
 .nav_bar_logo h1 {
@@ -224,6 +228,7 @@ select {
 #selected_product_parent {
   display: flex;
   margin: 50px;
+  flex: 1;
 }
 
 #sel_info {
@@ -239,6 +244,28 @@ select {
 }
 
 #selImage {
+  max-width: 50vw;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
+}
+
+#aboutUs_parent {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#aboutUsInfo {
+  display: flex;
+}
+
+#aboutUsText {
+  width: 40vw;
+  margin-right: 20px;
+}
+#aboutUsImg {
   max-width: 50vw;
   max-height: 50vh;
   width: auto;
