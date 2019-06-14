@@ -13,12 +13,18 @@ const {Order, orderPrd, Product} = require('../db/models')
 // to add a cart
 router.post('/', async (req, res, next) => {
   try {
-    let cart = await Order.create({session: 'placeholderSession'})
-    res.status(200).send(cart)
+    //if signed in user has open cart, load that cart
+    //if they are signed in and dont have an open cart,
+    //then create below
+
+    let cart = await Order.findOrCreate({where: {session: req.sessionID}})
+    res.status(200).send(cart[0])
   } catch (error) {
     next(error)
   }
 })
+
+//if guest => user, now we have a passport.user, then i want to update the above instance
 
 // to add products to the cart
 router.put('/:orderId/addProduct', async (req, res, next) => {
@@ -59,7 +65,7 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
       where: {orderId: req.params.orderId, productId: req.body.productId}
     })
     if (order) {
-      order.destroy()
+      await order.destroy()
       let allOrders = await Order.findAll({
         where: {
           id: req.params.orderId
@@ -102,7 +108,14 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
-      await order.update({completed: true})
+      if (req.user.id) {
+        await order.update({
+          userId: req.user.id,
+          completed: true
+        })
+      } else {
+        await order.update({completed: true})
+      }
       res.status(202).send('completed')
     } else {
       next()

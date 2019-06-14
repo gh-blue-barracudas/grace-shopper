@@ -8,6 +8,10 @@ const Order = db.define('order', {
   completed: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 

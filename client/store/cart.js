@@ -5,7 +5,6 @@ const ADD_PROD = 'ADD_PROD'
 const DELETE_PROD = 'DELETE_PROD'
 const EDIT_PROD_QUANT = 'EDIT_PROD_QUANT'
 const COMP_CHCKOUT = 'COMP_CHCKOUT'
-const GET_CART_PROD = 'GET_CART_PROD'
 
 // Action Creators
 
