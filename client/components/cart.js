@@ -1,41 +1,68 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {deleteProd, editProdQuant, cartProd} from '../store/cart'
+import {deleteProd, editProdQuant} from '../store/cart'
 import {EmptyCart} from './emptycart'
 
 class Cart extends Component {
-  componentDidMount() {
-    console.log(this.props.match.params.id)
-    this.props.cartProd(this.props.match.params.id)
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(id, cartItem) {
+    this.props.deleteProd(id, cartItem)
   }
   render() {
-    const cart = this.props.cart
-    console.log('this is the cart', this.props)
-    return this.props.cart ? (
-      <div>
-        <h3>Cart</h3>
+    if (this.props.cart[0]) {
+      const cart = this.props.cart[0].products
+      return (
         <div>
-          <table>
-            <tbody>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>T</th>
-              </tr>
-              {cart.map(cartItem => (
-                <tr key={cartItem.id}>
-                  <td>{cartItem.products.productName}</td>
-                  <td>{cartItem.products.price}</td>
+          <h3>Cart</h3>
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Modify</th>
+                  <th />
                 </tr>
-              ))}
-            </tbody>
-          </table>
+                {cart.map(cartItem => (
+                  <tr key={cartItem.id}>
+                    <td>{cartItem.productName}</td>
+                    <td>{cartItem.price}</td>
+                    <td>{cartItem.orderPrd.quantity}</td>
+                    <td>
+                      <select>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </td>
+                    <td>
+                      <img
+                        src="https://cdn4.iconfinder.com/data/icons/epic-outlines/30/660989-delete_button-128.png"
+                        onClick={() =>
+                          this.handleClick(this.props.id, cartItem.id)
+                        }
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div>No Cart</div>
-    )
+      )
+    } else {
+      return (
+        <div>
+          <h1>No Cart</h1>
+        </div>
+      )
+    }
   }
 }
 
@@ -48,7 +75,6 @@ const mapStateProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  cartProd: cart => dispatch(cartProd(cart)),
   deleteProd: (cartId, prodId) => dispatch(deleteProd(cartId, prodId)),
   editProdQuant: (cartId, prodId, quantity) =>
     dispatch(editProdQuant(cartId, prodId, quantity))
