@@ -5,14 +5,8 @@ const ADD_PROD = 'ADD_PROD'
 const DELETE_PROD = 'DELETE_PROD'
 const EDIT_PROD_QUANT = 'EDIT_PROD_QUANT'
 const COMP_CHCKOUT = 'COMP_CHCKOUT'
-const GET_CART_PROD = 'GET_CART_PROD'
 
 // Action Creators
-
-const getCartProd = cart => ({
-  type: GET_CART_PROD,
-  cart
-})
 
 const createdCart = id => ({
   type: CREATE_CART,
@@ -39,17 +33,6 @@ const completedCart = () => ({
 })
 
 // Thunk Creators
-export const cartProd = id => {
-  return async dispatch => {
-    try {
-      const {data} = await Axios.get(`/api/carts/${id}`)
-      console.log('from the thunk: ', data)
-      dispatch(getCartProd(data))
-    } catch (error) {
-      console.log('Error getting items in cart: ', error)
-    }
-  }
-}
 
 export const createCart = () => {
   return async dispatch => {
@@ -116,14 +99,11 @@ export const completeCheckout = cartId => {
 // Initial State
 const defaultCart = {
   id: 0,
-  cart: [],
-  detailedCart: null
+  cart: []
 }
 
 export default function(state = defaultCart, action) {
   switch (action.type) {
-    case GET_CART_PROD:
-      return {...state, cart: action.cart}
     case CREATE_CART:
       return {...state, id: action.id}
     case ADD_PROD:

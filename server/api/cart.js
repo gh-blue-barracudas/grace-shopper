@@ -1,43 +1,30 @@
 const router = require('express').Router()
 const {Order, orderPrd, Product} = require('../db/models')
 
-//add router post to add sessions to the Order
+// to get persistant cart
+// router.get('/:orderId', async (req,res,next) => {
+// try {
+//
+// } catch (error) {
+//   next(error)
+// }
+// })
+
+// to add a cart
 router.post('/', async (req, res, next) => {
   try {
-    let cart
-    //if user is logged in, add the passport.user
-    if (req.session.passport.user) {
-      cart = await Order.findOrCreate({
-        where: {session: req.sessionID},
-        defaults: {userId: req.session.passport.user}
-      })
-    } else {
-      cart = await Order.findOrCreate({
-        where: {session: req.sessionID}
-      })
-    }
-    res.status(200).send(cart)
+    //if signed in user has open cart, load that cart
+    //if they are signed in and dont have an open cart,
+    //then create below
+
+    let cart = await Order.findOrCreate({where: {session: req.sessionID}})
+    res.status(200).send(cart[0])
   } catch (error) {
     next(error)
   }
 })
 
-//idea on what would happen if a user was a Guest, and then they signed in.
-//passport.user exists now, so you need to update the order's userId based on the sessionId
-router.put('/', async (req, res, next) => {
-  const passUser = req.session.passport.user
-  try {
-    if (passUser) {
-      let cart = await Order.update(
-        {userId: passUser},
-        {where: {session: req.sessionID}, returning: true, plain: true}
-      )
-      res.status(200).send(cart[1])
-    }
-  } catch (error) {
-    next(error)
-  }
-})
+//if guest => user, now we have a passport.user, then i want to update the above instance
 
 // to add products to the cart
 router.put('/:orderId/addProduct', async (req, res, next) => {
@@ -78,7 +65,7 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
       where: {orderId: req.params.orderId, productId: req.body.productId}
     })
     if (order) {
-      order.destroy()
+      await order.destroy()
       let allOrders = await Order.findAll({
         where: {
           id: req.params.orderId
@@ -121,7 +108,14 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
-      await order.update({completed: true})
+      if (req.user.id) {
+        await order.update({
+          userId: req.user.id,
+          completed: true
+        })
+      } else {
+        await order.update({completed: true})
+      }
       res.status(202).send('completed')
     } else {
       next()
