@@ -13,56 +13,56 @@ async function seed() {
       price: 500.00,
       description:
         'You construct the last season of Game of Thrones better than anyone could ever imagine, including yourself. Bonus, you wake up and actually remember parts of it to tell people.',
-      imageUrl: 'https://i.imgur.com/OiOIPOU.jpg ',
+      imageUrl: 'https://i.imgur.com/rqMMbJp.png',
       productType: 'dream'
     },
     {
       productName: 'Stormy',
       price: 3.00,
       description: `You’re on a boat, massive waves are crashing against the ship as a hurricane or massive storm approaches. Think scenes from ‘Adrift’ or ‘The Perfect Storm’ that you know ends in probable death(by drowning). Hopefully you’ll wake up before...`,
-      imageUrl: 'https://i.imgur.com/HGzVGO2.jpg',
+      imageUrl: 'https://i.imgur.com/pc6Apyn.png',
       productType: 'nightmare'
     },
     {
       productName: 'Spy Romance',
       price: 300.00,
       description: `Get ready for incredible adrenaline and oxytocin rushes! You’re indisputably one of the world’s best spies. You are sent on a mission to a beautiful tropical island and are informed you’ve been assigned a partner to help crack down on a nefarious drug ring. You’re taken aback when you realize your partner is not only talented at his job, but also exactly your ideal type. Experience immense thrills tracking down your targets and escaping close calls, while also growing closer to your partner. Your dream ends with a mission success and an epic kiss with your partner set against the backdrop of a beach with a romantic sunset.`,
-      imageUrl: 'https://i.imgur.com/92owuo8.jpg',
+      imageUrl: 'https://i.imgur.com/kAVMiqX.png',
       productType: 'dream'
     },
     {
       productName: 'Major Failures',
       price: 3.00,
       description: `You’re entering finals season in college when you realize you’re still enrolled in the class you thought you withdrew from at the start of semester. You speak to the professor who has no sympathy for you and tells you you have no choice but to take the exam as you’ve received zeros on all his other mandatory course assignments. You enter the dark, chilly exam room in hopes that the exam is multiple choice and you can get some points to only find out the whole exam is open-ended. The race against time is on where you futilely and anxiously try to save your already mediocre GPA.`,
-      imageUrl: 'https://i.imgur.com/ALNleiG.jpg',
+      imageUrl: 'https://i.imgur.com/Z4uxifN.png',
       productType: 'nightmare'
     },
     {
       productName: 'Free Money',
       price: 200.00,
       description: `You’re entering finals season in college when you realize you’re still enrolled in the class you thought you withdrew from at the start of semester. You speak to the professor who has no sympathy for you and tells you you have no choice but to take the exam as you’ve received zeros on all his other mandatory course assignments. You enter the dark, chilly exam room in hopes that the exam is multiple choice and you can get some points to only find out the whole exam is open-ended. The race against time is on where you futilely and anxiously try to save your already mediocre GPA.`,
-      imageUrl: 'https://i.imgur.com/cyQM603.jpg',
+      imageUrl: 'https://i.imgur.com/kwvpePI.png',
       productType: 'dream'
     },
     {
       productName: 'Waning Programming',
       price: 10.00,
       description: `This potion is very effective on making someone else forget all the knowledge s/he got through her/his entire life about programming. Also, this should be performed during a waning moon.`,
-      imageUrl: 'https://i.imgur.com/Vu6CjEb.jpg',
+      imageUrl: 'https://i.imgur.com/ir79ura.png',
       productType: 'nightmare'
     },
     {
       productName: 'Infinite Loop',
       price: 3.00,
       description: `Your React Components aren’t rendering and you get thrown for an infinite recursive loop on the backsplash of VSC.`,
-      imageUrl: 'https://i.imgur.com/2N3Hwp2.jpg',
+      imageUrl: 'https://i.imgur.com/3azSCsQ.png',
       productType: 'nightmare'
     },
     {
       productName: 'Great Gatsby',
       price: 2000.00,
       description: `You have just bought the largest castle in New York and get to throw Great Gatsby-level house parties every evening without ever being hungover.`,
-      imageUrl: 'https://i.imgur.com/WleyUdX.png',
+      imageUrl: 'https://i.imgur.com/hu0XCns.png',
       productType: 'dream'
     }
   ]

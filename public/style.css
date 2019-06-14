@@ -128,8 +128,8 @@ i {
 .product_card {
   display: flex;
   flex-direction: column;
-  background-color: #fcdada;
-  opacity: 50%;
+  background-color: #707070;
+  opacity: 30%;
   align-items: center;
 }
 
@@ -223,11 +223,19 @@ select {
 
 #selected_product_parent {
   display: flex;
+  margin: 50px;
 }
 
 #sel_info {
   display: flex;
   flex-direction: column;
+  align-content: flex-start;
+  width: 40vw;
+  margin-left: 20px;
+}
+
+.sel_prod_btn {
+  width: 15vw;
 }
 
 #selImage {
