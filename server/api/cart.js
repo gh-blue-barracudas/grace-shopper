@@ -1,34 +1,39 @@
 const router = require('express').Router()
 const {Order, orderPrd, Product} = require('../db/models')
 
-// to get persistant cart
-// router.get('/:orderId', async (req,res,next) => {
-// try {
-//
-// } catch (error) {
-//   next(error)
-// }
-// })
-
-// to add a cart
-router.get('/:cartId', async (req, res, next) => {
+//add router post to add sessions to the Order
+router.post('/', async (req, res, next) => {
   try {
-    let productsInCart = await Order.findAll({
-      where: {
-        id: req.params.cartId
-      },
-      include: [{model: Product}]
-    })
-    res.status(200).json(productsInCart)
+    let cart
+    //if user is logged in, add the passport.user
+    if (req.session.passport.user) {
+      cart = await Order.findOrCreate({
+        where: {session: req.sessionID},
+        defaults: {userId: req.session.passport.user}
+      })
+    } else {
+      cart = await Order.findOrCreate({
+        where: {session: req.sessionID}
+      })
+    }
+    res.status(200).send(cart)
   } catch (error) {
     next(error)
   }
 })
 
-router.post('/', async (req, res, next) => {
+//idea on what would happen if a user was a Guest, and then they signed in.
+//passport.user exists now, so you need to update the order's userId based on the sessionId
+router.put('/', async (req, res, next) => {
+  const passUser = req.session.passport.user
   try {
-    let cart = await Order.create({session: 'placeholderSession'})
-    res.status(200).send(cart)
+    if (passUser) {
+      let cart = await Order.update(
+        {userId: passUser},
+        {where: {session: req.sessionID}, returning: true, plain: true}
+      )
+      res.status(200).send(cart[1])
+    }
   } catch (error) {
     next(error)
   }
