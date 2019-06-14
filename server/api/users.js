@@ -16,8 +16,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// Route to grab information from userId
-router.get('/:userId', async (req, res, next) => {
+// Route to grab order information from userId
+router.get('/:userId/orders', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId, {
       include: {
@@ -26,9 +26,6 @@ router.get('/:userId', async (req, res, next) => {
     })
     if (user) {
       res.status(200).send({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
         orders: user.orders
       })
     } else {
