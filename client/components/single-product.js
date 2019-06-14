@@ -19,11 +19,11 @@ class SingleProduct extends Component {
       const product = this.props.selectedProduct
       if (id) {
         this.props.addProd(id, product.id)
-        console.log(this.props)
       } else {
         await this.props.createCart()
         this.props.addProd(this.props.id, product.id)
       }
+      this.props.history.push('/cart')
     } catch (error) {
       console.error(error)
     }

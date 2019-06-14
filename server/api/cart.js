@@ -11,20 +11,6 @@ const {Order, orderPrd, Product} = require('../db/models')
 // })
 
 // to add a cart
-router.get('/:cartId', async (req, res, next) => {
-  try {
-    let productsInCart = await Order.findAll({
-      where: {
-        id: req.params.cartId
-      },
-      include: [{model: Product}]
-    })
-    res.status(200).json(productsInCart)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.post('/', async (req, res, next) => {
   try {
     let cart = await Order.create({session: 'placeholderSession'})
