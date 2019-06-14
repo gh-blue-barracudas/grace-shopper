@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Footer from './footer'
 import AllProducts from './all-products'
 
 class Home extends React.Component {
   render() {
     return (
-      <div className="main">
+      <div id="main">
         <div className="container">
           <img className="hero" src="https://i.imgur.com/pxpNYHB.png" />
           <Link to="/products">
@@ -14,9 +15,6 @@ class Home extends React.Component {
               Shop All
             </button>
           </Link>
-        </div>
-        <div className="footer">
-          <h1>This is the footer</h1>
         </div>
       </div>
     )

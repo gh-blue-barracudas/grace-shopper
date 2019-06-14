@@ -3,52 +3,57 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import AppBar from '@material-ui/core/AppBar'
 
-const Navbar = ({handleClick, isLoggedIn}, props) => (
-  <div className="nav_bar_parent">
-    <div className="nav_bar_logo">
-      <Link to="/">
-        <div>
-          <img src="https://i.imgur.com/LGuTXqS.png" />
-        </div>
-      </Link>
-    </div>
-    <div className="nav_bar_items">
-      {isLoggedIn ? (
-        <div className="nav_bar_item">
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div className="nav_bar_item">
-          {/* The navbar will show these links before you log in */}
-          <div className="nav_bar_child">
-            <Link to="/login">
-              <a>Login</a>
-            </Link>
+const Navbar = ({handleClick, isLoggedIn}) => (
+  <AppBar
+    position="sticky"
+    style={{
+      opacity: '50%',
+      backgroundColor: '#292929'
+    }}
+  >
+    <div className="nav_bar_parent">
+      <div className="nav_bar_logo">
+        <Link to="/">
+          <div>
+            <img className="navImg" src="https://i.imgur.com/LGuTXqS.png" />
           </div>
-          <div className="nav_bar_child">
-            <Link to="/signup">
-              <a>Sign Up</a>
+        </Link>
+      </div>
+      <div className="nav_bar_items">
+        {isLoggedIn ? (
+          <div className="nav_bar_item">
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">
+              <div className="nav_bar_child">home</div>
             </Link>
-          </div>
-          <div className="nav_bar_child">
+            <a href="#" onClick={handleClick} className="nav_bar_child">
+              logout
+            </a>
             <Link to="/cart">
-              <button type="submit">
-                <img
-                  className="nav_bar_cart_image"
-                  src="https://i.imgur.com/QLgfrML.png"
-                />
-              </button>
+              <div className="nav_bar_child">cart </div>
             </Link>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="nav_bar_item">
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">
+              {' '}
+              <div className="nav_bar_child">login </div>
+            </Link>
+            <Link to="/signup">
+              {' '}
+              <div className="nav_bar_child">sign up </div>
+            </Link>
+            <Link to="/cart">
+              <div className="nav_bar_child">cart </div>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
+  </AppBar>
 )
 
 /**
