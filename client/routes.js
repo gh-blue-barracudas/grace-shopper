@@ -12,7 +12,8 @@ import {
   ConnectedCart,
   OrderConfirm,
   NotFound,
-  AboutUs
+  AboutUs,
+  UserHome
 } from './components'
 import {me} from './store'
 
@@ -36,7 +37,6 @@ class Routes extends Component {
           <Route path="/products/:id" component={SingleProduct} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          <Route path="/products/:id/cart" component={ConnectedCart} />
           <Route path="/cart" component={ConnectedCart} />
           <Route path="/complete" component={OrderConfirm} />
           <Route path="/checkout" component={Checkout} />
@@ -44,6 +44,7 @@ class Routes extends Component {
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in - should later add user profile page and order history here */}
+              <Route path="/home" component={UserHome} />
             </Switch>
           )}
           <Route path="/login" component={Login} />

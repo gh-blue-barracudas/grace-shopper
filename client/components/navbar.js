@@ -59,11 +59,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
+const mapState = state => ({
+  isLoggedIn: !!state.user.id,
+  cart: state.cart.cart
+})
 
 const mapDispatch = dispatch => {
   return {
