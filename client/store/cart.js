@@ -5,7 +5,8 @@ const ADD_PROD = 'ADD_PROD'
 const DELETE_PROD = 'DELETE_PROD'
 const EDIT_PROD_QUANT = 'EDIT_PROD_QUANT'
 const COMP_CHCKOUT = 'COMP_CHCKOUT'
-const GET_CART_PROD = 'GET_CART_PROD'
+const GET_CART = 'GET_CART'
+const UPDATE_TOTAL = 'UPDATE_TOTAL'
 
 // Action Creators
 
@@ -13,6 +14,21 @@ const createdCart = id => ({
   type: CREATE_CART,
   id
 })
+
+const updateTotal = products => {
+  let total = 0
+  //at the beginning the cart is undefined on the state, that's why I am using this conditional
+  if (products) {
+    products.map(prod => {
+      total += prod.price * prod.orderPrd.quantity
+    })
+  }
+  return {
+    //action.type and action.total
+    type: UPDATE_TOTAL,
+    total
+  }
+}
 
 const addedProd = cart => ({
   type: ADD_PROD,
@@ -31,6 +47,12 @@ const editedProdQuantity = cart => ({
 
 const completedCart = () => ({
   type: COMP_CHCKOUT
+})
+
+const gotCart = (cart, id) => ({
+  type: GET_CART,
+  cart,
+  id
 })
 
 // Thunk Creators
@@ -53,6 +75,7 @@ export const addProd = (cartId, prodId) => {
         productId: prodId
       })
       dispatch(addedProd(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error adding product: ', error)
     }
@@ -62,10 +85,11 @@ export const addProd = (cartId, prodId) => {
 export const deleteProd = (cartId, prodId) => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`api/carts/${cartId}/deleteProduct`, {
+      const {data} = await Axios.put(`/api/carts/${cartId}/deleteProduct`, {
         productId: prodId
       })
       dispatch(deletedProd(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error deleting product: ', error)
     }
@@ -75,11 +99,12 @@ export const deleteProd = (cartId, prodId) => {
 export const editProdQuant = (cartId, prodId, quantity) => {
   return async dispatch => {
     try {
-      const {data} = await Axios.put(`api/carts/${cartId}/editProdQuantity`, {
+      const {data} = await Axios.put(`/api/carts/${cartId}/editProdQuantity`, {
         productId: prodId,
         quantity
       })
       dispatch(editedProdQuantity(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error editing quantity: ', error)
     }
@@ -89,7 +114,7 @@ export const editProdQuant = (cartId, prodId, quantity) => {
 export const completeCheckout = cartId => {
   return async dispatch => {
     try {
-      await Axios.put(`api/carts/${cartId}/completedOrder`)
+      await Axios.put(`/api/carts/${cartId}/completedOrder`)
       dispatch(completedCart())
     } catch (error) {
       console.log('Error deleting cart: ', error)
@@ -97,10 +122,22 @@ export const completeCheckout = cartId => {
   }
 }
 
+export const getCart = () => {
+  return async dispatch => {
+    try {
+      const {data} = await Axios.get(`/api/carts`)
+      dispatch(gotCart(data, data[0].id))
+    } catch (error) {
+      console.log('Error retrieving cart: ', error)
+    }
+  }
+}
+
 // Initial State
 const defaultCart = {
   id: 0,
-  cart: []
+  cart: [],
+  total: 0
 }
 
 export default function(state = defaultCart, action) {
@@ -115,6 +152,10 @@ export default function(state = defaultCart, action) {
       return {...state, cart: action.cart}
     case COMP_CHCKOUT:
       return defaultCart
+    case GET_CART:
+      return {...state, cart: action.cart, id: action.id}
+    case UPDATE_TOTAL:
+      return {...state, total: action.total}
     default:
       return state
   }
