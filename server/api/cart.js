@@ -6,7 +6,8 @@ router.get('/', async (req, res, next) => {
   try {
     let allOrders = await Order.findAll({
       where: {
-        session: req.sessionID
+        session: req.sessionID,
+        completed: false
       },
       include: [{model: Product}]
     })
@@ -23,7 +24,9 @@ router.post('/', async (req, res, next) => {
     //if they are signed in and dont have an open cart,
     //then create below
 
-    let cart = await Order.findOrCreate({where: {session: req.sessionID}})
+    let cart = await Order.findOrCreate({
+      where: {session: req.sessionID, completed: false}
+    })
     res.status(200).send(cart[0])
   } catch (error) {
     next(error)
@@ -114,7 +117,8 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
-      if (req.user.id) {
+      if (req.user) {
+        console.log('I am signed in')
         await order.update({
           userId: req.user.id,
           completed: true
