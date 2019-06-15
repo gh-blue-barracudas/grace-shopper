@@ -6,6 +6,7 @@ const DELETE_PROD = 'DELETE_PROD'
 const EDIT_PROD_QUANT = 'EDIT_PROD_QUANT'
 const COMP_CHCKOUT = 'COMP_CHCKOUT'
 const GET_CART = 'GET_CART'
+const UPDATE_TOTAL = 'UPDATE_TOTAL'
 
 // Action Creators
 
@@ -13,6 +14,21 @@ const createdCart = id => ({
   type: CREATE_CART,
   id
 })
+
+const updateTotal = products => {
+  let total = 0
+  //at the beginning the cart is undefined on the state, that's why I am using this conditional
+  if (products) {
+    products.map(prod => {
+      total += prod.price * prod.orderPrd.quantity
+    })
+  }
+  return {
+    //action.type and action.total
+    type: UPDATE_TOTAL,
+    total
+  }
+}
 
 const addedProd = cart => ({
   type: ADD_PROD,
@@ -59,6 +75,7 @@ export const addProd = (cartId, prodId) => {
         productId: prodId
       })
       dispatch(addedProd(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error adding product: ', error)
     }
@@ -72,6 +89,7 @@ export const deleteProd = (cartId, prodId) => {
         productId: prodId
       })
       dispatch(deletedProd(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error deleting product: ', error)
     }
@@ -86,6 +104,7 @@ export const editProdQuant = (cartId, prodId, quantity) => {
         quantity
       })
       dispatch(editedProdQuantity(data))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error editing quantity: ', error)
     }
@@ -117,7 +136,8 @@ export const getCart = () => {
 // Initial State
 const defaultCart = {
   id: 0,
-  cart: []
+  cart: [],
+  total: 0
 }
 
 export default function(state = defaultCart, action) {
@@ -134,6 +154,8 @@ export default function(state = defaultCart, action) {
       return defaultCart
     case GET_CART:
       return {...state, cart: action.cart, id: action.id}
+    case UPDATE_TOTAL:
+      return {...state, total: action.total}
     default:
       return state
   }

@@ -9,6 +9,7 @@ class Cart extends Component {
     super()
     this.handleClick = this.handleClick.bind(this)
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this)
+    this.handleEditQuantity = this.handleEditQuantity.bind(this)
   }
   componentDidMount() {
     this.props.getCart()
@@ -16,10 +17,15 @@ class Cart extends Component {
   handleCheckoutClick() {
     this.props.history.push('/checkout')
   }
-  handleClick(id, cartItem) {
-    this.props.deleteProd(id, cartItem)
+  handleEditQuantity(cartId, prodId, quantityEvt) {
+    this.props.editProdQuant(cartId, prodId, quantityEvt)
+  }
+  handleClick(cartId, prodId) {
+    this.props.deleteProd(cartId, prodId)
   }
   render() {
+    //console.log('CART: ', this.props.cart[0])
+    console.log('MY CART: ', this.props.cart[0])
     if (this.props.cart[0]) {
       const cart = this.props.cart[0].products
       return (
@@ -41,7 +47,15 @@ class Cart extends Component {
                     <td>{cartItem.price}</td>
                     <td>{cartItem.orderPrd.quantity}</td>
                     <td>
-                      <select>
+                      <select
+                        onChange={() =>
+                          this.handleEditQuantity(
+                            this.props.id,
+                            cartItem.id,
+                            event.target.value
+                          )
+                        }
+                      >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -61,6 +75,9 @@ class Cart extends Component {
                 ))}
               </tbody>
             </table>
+            <div>
+              <p>TOTAL:${this.props.total}.00</p>
+            </div>
             <Button
               style={{
                 opacity: '50%',
@@ -89,6 +106,7 @@ const mapStateProps = state => {
   return {
     id: state.cart.id,
     cart: state.cart.cart,
+    total: state.cart.total,
     selectedProduct: state.product.selectedProduct
   }
 }
