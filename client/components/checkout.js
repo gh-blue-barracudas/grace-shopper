@@ -1,10 +1,17 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Button from '@material-ui/core/Button'
+import {completeCheckout} from '../store/cart'
 
 class Checkout extends Component {
   constructor() {
     super()
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick() {
+    this.props.completeCheckout(this.props.id)
+    this.props.history.push('/complete')
   }
   handleSubmit(evt) {
     evt.preventDefault()
@@ -228,19 +235,28 @@ class Checkout extends Component {
           <h3>ORDER REVIEW</h3>
           <div>Placeholder product here!</div>
         </div>
+        <Button
+          style={{
+            opacity: '50%',
+            backgroundColor: '#fff2ab',
+            marginTop: '20px',
+            width: '15vw'
+          }}
+          onClick={this.handleClick}
+        >
+          Complete Order
+        </Button>
       </div>
     )
   }
 }
 
-const mapStateProps = state => {
-  return {
-    //
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  //
+const mapStateToProps = state => ({
+  id: state.cart.id
 })
 
-export default connect(mapStateProps, mapDispatchToProps)(Checkout)
+const mapDispatchToProps = dispatch => ({
+  completeCheckout: cartId => dispatch(completeCheckout(cartId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
