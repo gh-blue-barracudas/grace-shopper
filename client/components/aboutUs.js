@@ -34,7 +34,7 @@ const AboutUs = () => {
             style={{
               opacity: '50%',
               backgroundColor: '#fff2ab',
-              'margin-top': '20px',
+              marginTop: '20px',
               width: '15vw'
             }}
           >
