@@ -26,7 +26,7 @@ h2 {
 a {
   font-family: ‘Roboto’, sans-serif;
   text-decoration: none;
-  color: #ffffff;
+  color: #616161;
 }
 
 label {
@@ -85,7 +85,7 @@ i {
 }
 
 .hero {
-  width: 100%;
+  width: 100vw;
 }
 
 .hpgHeroContent {
@@ -126,6 +126,100 @@ i {
 }
 
 /* AUTH FORMS */
+
+#auth_form_parent {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding-bottom: 0.25rem;
+  margin: 20px 50px 20px 50px;
+}
+
+#auth_form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+}
+
+.field_parent label {
+  font-family: ‘Roboto’, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  color: whitesmoke;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.field_parent input {
+  background-color: #616161;
+  min-width: 20vw;
+  width: auto;
+  border: 1px solid #eee;
+  border-left: 5px solid;
+  border-radius: 5px;
+  transition: border-color 0.5s ease-out;
+  padding: 0.75rem;
+  font-family: ‘Roboto’, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.field_parent input:optional {
+  border-left-color: #999;
+}
+.field_parent input:required {
+  border-left-color: palegreen;
+  background-color: #999;
+}
+.field_parent input:invalid {
+  border-left-color: #e0d593;
+  background-color: #999;
+}
+#auth_button_error_parent {
+  display: flex;
+}
+#auth_button button {
+  border-radius: 5px;
+  font-family: ‘Roboto’, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  border: none;
+  background-color: #fff2ab;
+  color: #303030;
+  padding: 1rem;
+  min-width: 10vw;
+  margin-left: -1vw;
+}
+
+#auth_error {
+  background-color: #d0c9ff;
+  color: #303030;
+  border-radius: 5px;
+  padding: 1rem;
+  font-family: ‘Roboto’, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+#auth_Google a {
+  display: flex;
+  align-items: center;
+  color: #eee;
+  font-family: ‘Roboto’, sans-serif;
+  font-size: 14px;
+  font-weight: 100;
+  margin-left: 1vw;
+}
+
+#googleImg {
+  width: 5%;
+  margin-left: 3px;
+}
+
+#nameLabel {
+  margin-left: -0.25vw;
+}
 
 /* PRODUCT PAGE */
 

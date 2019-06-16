@@ -43,7 +43,7 @@ const AboutUs = () => {
             <Link to="/products/">SHOP ALL </Link>
           </Button>
         </div>
-        <img id="aboutUsImg" src="https://i.imgur.com/VZvR5DI.gif" />
+        <img id="aboutUsImg" src="https://i.imgur.com/Dk1I11u.gif" />
       </div>
     </div>
   )

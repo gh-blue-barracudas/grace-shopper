@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 //import Button from '@material-ui/core/Button'
 import {Link} from 'react-router-dom'
 
-export class EmptyCart extends Component {
+class EmptyCart extends Component {
   constructor() {
     super()
     this.handleBrowseClick = this.handleBrowseClick.bind(this)
@@ -35,3 +35,5 @@ export class EmptyCart extends Component {
     )
   }
 }
+
+export default EmptyCart

@@ -10,14 +10,12 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div id="auth_form_parent">
+      <form id="auth_form" onSubmit={handleSubmit} name={name}>
         {props.name === 'signup' && (
           <div>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name</small>
-              </label>
+            <div className="field_parent" id="nameLabel">
+              <label htmlFor="firstName">First Name</label>
               <input
                 name="firstName"
                 type="text"
@@ -25,10 +23,8 @@ const AuthForm = props => {
                 title="First Name Required"
               />
             </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name</small>
-              </label>
+            <div className="field_parent">
+              <label htmlFor="lastName">Last Name</label>
               <input
                 name="lastName"
                 type="text"
@@ -38,16 +34,12 @@ const AuthForm = props => {
             </div>
           </div>
         )}
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
+        <div className="field_parent">
+          <label htmlFor="email">Email</label>
           <input name="email" type="text" required title="E-mail Required" />
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
+        <div className="field_parent">
+          <label htmlFor="password">Password</label>
           <input
             name="password"
             type="password"
@@ -56,12 +48,22 @@ const AuthForm = props => {
             title="Password required, min 8 characters"
           />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div id="auth_button_error_parent">
+          <div id="auth_button">
+            <button type="submit">{displayName}</button>
+          </div>
+          {error &&
+            error.response && (
+              <div id="auth_error"> {error.response.data} </div>
+            )}
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div id="auth_Google">
+        <a href="/auth/google">
+          {displayName} with
+          <img id="googleImg" src="https://i.imgur.com/TbBFjBO.png" />
+        </a>
+      </div>
     </div>
   )
 }
