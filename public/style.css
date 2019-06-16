@@ -295,11 +295,10 @@ select {
   text-align: center;
   color: white;
   padding: 30px;
-  height: 120px;
 }
 
 table {
-  /* display: table; */
+  display: table;
   border-collapse: separate;
   border-spacing: 2px;
 }
