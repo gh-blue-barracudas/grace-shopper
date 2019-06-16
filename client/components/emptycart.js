@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-//import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import {Link} from 'react-router-dom'
 
 class EmptyCart extends Component {
@@ -8,7 +8,6 @@ class EmptyCart extends Component {
     this.handleBrowseClick = this.handleBrowseClick.bind(this)
   }
   handleBrowseClick() {
-    console.log('PROPS: ', this.props.history)
     this.props.history.push('/products')
   }
   render() {
@@ -25,9 +24,16 @@ class EmptyCart extends Component {
           <p className="pEmptyCart">Please add something to your cart first.</p>
           <div>
             <Link to="/products">
-              <button type="button" className="buttonEmpty">
+              <Button
+                style={{
+                  opacity: '50%',
+                  backgroundColor: '#fff2ab',
+                  marginTop: '20px',
+                  width: '15vw'
+                }}
+              >
                 Browse Products
-              </button>
+              </Button>
             </Link>
           </div>
         </div>
