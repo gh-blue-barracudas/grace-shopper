@@ -18,13 +18,23 @@ const AuthForm = props => {
               <label htmlFor="firstName">
                 <small>First Name</small>
               </label>
-              <input name="firstName" type="text" required />
+              <input
+                name="firstName"
+                type="text"
+                required
+                title="First Name Required"
+              />
             </div>
             <div>
               <label htmlFor="lastName">
                 <small>Last Name</small>
               </label>
-              <input name="lastName" type="text" required />
+              <input
+                name="lastName"
+                type="text"
+                required
+                title="Last Name Required"
+              />
             </div>
           </div>
         )}
@@ -32,7 +42,7 @@ const AuthForm = props => {
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" required />
+          <input name="email" type="text" required title="E-mail Required" />
         </div>
         <div>
           <label htmlFor="password">
@@ -43,7 +53,7 @@ const AuthForm = props => {
             type="password"
             pattern=".{8,}"
             required
-            title="8 characters minimum"
+            title="Password required, min 8 characters"
           />
         </div>
         <div>
@@ -66,7 +76,7 @@ const AuthForm = props => {
 const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'login',
     error: state.user.error
   }
 }
@@ -74,7 +84,7 @@ const mapLogin = state => {
 const mapSignup = state => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'sign up',
     error: state.user.error
   }
 }
@@ -89,7 +99,7 @@ const mapDispatch = dispatch => {
       if (formName === 'signup') {
         const firstName = evt.target.firstName.value
         const lastName = evt.target.lastName.value
-        dispatch(auth(email, password, firstName, lastName, formName))
+        dispatch(auth(email, password, formName, firstName, lastName))
       } else {
         dispatch(auth(email, password, formName))
       }
