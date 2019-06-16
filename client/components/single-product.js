@@ -37,7 +37,7 @@ class SingleProduct extends Component {
             <div className="cover">
               <img
                 className="overlayImg"
-                src="https://i.imgur.com/XVwcwAs.png"
+                src="https://i.imgur.com/KX09sdf.png"
               />
             </div>
           </div>
