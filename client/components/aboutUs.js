@@ -41,7 +41,7 @@ const AboutUs = () => {
             SHOP ALL
           </Button>
         </div>
-        <img id="aboutUsImg" src="https://i.imgur.com/rvBAP42.jpg" />
+        <img id="aboutUsImg" src="https://i.imgur.com/VZvR5DI.gif" />
       </div>
     </div>
   )

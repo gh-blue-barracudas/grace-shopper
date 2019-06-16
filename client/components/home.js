@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
       <div id="main">
         <div className="container">
-          <img className="hero" src="https://i.imgur.com/pxpNYHB.png" />
+          <img className="hero" src="https://i.imgur.com/PYQYmxj.jpg" />
           <Link to="/products">
             <h1>what dreams are made of</h1>
             <button className="btn" type="button">
