@@ -83,7 +83,7 @@ const mapDispatch = dispatch => {
       if (formName === 'signup') {
         const firstName = evt.target.firstName.value
         const lastName = evt.target.lastName.value
-        dispatch(auth(email, password, firstName, lastName, formName))
+        dispatch(auth(email, password, formName, firstName, lastName))
       } else {
         dispatch(auth(email, password, formName))
       }
