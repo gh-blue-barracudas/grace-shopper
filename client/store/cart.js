@@ -127,6 +127,7 @@ export const getCart = () => {
     try {
       const {data} = await Axios.get(`/api/carts`)
       dispatch(gotCart(data, data[0].id))
+      dispatch(updateTotal(data[0].products))
     } catch (error) {
       console.log('Error retrieving cart: ', error)
     }
