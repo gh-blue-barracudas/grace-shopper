@@ -26,7 +26,7 @@ h2 {
 a {
   font-family: ‘Roboto’, sans-serif;
   text-decoration: none;
-  color: #fff2ab;
+  color: #ffffff;
 }
 
 label {
@@ -107,6 +107,7 @@ i {
   padding: 24px;
   border: none;
   border-radius: 5px;
+  margin: 5vh 0px 5vh 0px;
 }
 
 .container .btn:hover {
@@ -124,10 +125,13 @@ i {
   left: 48%;
   transform: translate(-50%, -50%);
 }
+
+/* AUTH FORMS */
+
 /* PRODUCT PAGE */
 
 .product_parent {
-  margin: 5vw;
+  margin: 70px 5vw 200px 5vw;
   width: 90vw;
   display: grid;
   grid-gap: 50px 50px;
@@ -174,6 +178,8 @@ i {
 .product_child + .product_child {
   margin-top: 20px;
 }
+
+/*Nav Bar*/
 
 .nav_bar_parent {
   background: #292929;
@@ -224,6 +230,8 @@ i {
   border: #615757;
   color: white;
 }
+
+/*Selected Product - Single Prd*/
 
 select {
   background-color: #615757;
@@ -283,6 +291,8 @@ select {
 .selImageContainer:hover .overlay {
   opacity: 0.75;
 }
+
+/*About Us*/
 
 #aboutUs_parent {
   margin: 50px;
