@@ -29,22 +29,26 @@ class Cart extends Component {
     if (this.props.cart[0]) {
       const cart = this.props.cart[0].products
       return (
-        <div>
-          <h3>Cart</h3>
-          <div>
-            <table>
-              <tbody>
+        <div className="cart">
+          <div className="cartName">
+            <h1>SHOPPING CART</h1>
+          </div>
+          <div className="orderContainer">
+            <table className="orderTable">
+              <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Modify</th>
+                  <th>PRODUCT</th>
+                  <th>PRICE</th>
+                  <th>QUANTITY</th>
+                  <th>MODIFY</th>
                   <th />
                 </tr>
+              </thead>
+              <tbody>
                 {cart.map(cartItem => (
                   <tr key={cartItem.id}>
                     <td>{cartItem.productName}</td>
-                    <td>{cartItem.price}</td>
+                    <td>${cartItem.price}</td>
                     <td>{cartItem.orderPrd.quantity}</td>
                     <td>
                       <select
@@ -65,30 +69,35 @@ class Cart extends Component {
                     </td>
                     <td>
                       <img
-                        src="https://cdn4.iconfinder.com/data/icons/epic-outlines/30/660989-delete_button-128.png"
+                        src="https://img.icons8.com/plasticine/2x/cancel.png"
                         onClick={() =>
                           this.handleClick(this.props.id, cartItem.id)
                         }
+                        className="deleteIcon"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div>
-              <p>TOTAL:${this.props.total}.00</p>
+          </div>
+          <div>
+            <div className="total">
+              <p>TOTAL: ${this.props.total}.00</p>
             </div>
-            <Button
-              style={{
-                opacity: '50%',
-                backgroundColor: '#fff2ab',
-                marginTop: '20px',
-                width: '15vw'
-              }}
-              onClick={this.handleCheckoutClick}
-            >
-              Checkout
-            </Button>
+            <div className="checkout">
+              <Button
+                style={{
+                  opacity: '50%',
+                  backgroundColor: '#fff2ab',
+                  marginTop: '20px',
+                  width: '15vw'
+                }}
+                onClick={this.handleCheckoutClick}
+              >
+                Checkout
+              </Button>
+            </div>
           </div>
         </div>
       )
