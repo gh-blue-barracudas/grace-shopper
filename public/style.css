@@ -271,3 +271,71 @@ select {
   width: auto;
   height: auto;
 }
+
+/*CART STYLE*/
+
+.cartName {
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+  font-size: 22px;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 0;
+  color: aliceblue;
+  border-bottom: white;
+}
+
+.orderContainer {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  color: white;
+  padding: 30px;
+  height: 120px;
+}
+
+table {
+  /* display: table; */
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+
+th {
+  font-family: 'Poiret One';
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+tbody {
+  font-family: ‘Roboto’, sans-serif;
+}
+
+.orderTable {
+  width: 70%;
+}
+
+.deleteIcon {
+  height: 50px;
+}
+
+img:hover {
+  cursor: pointer;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
