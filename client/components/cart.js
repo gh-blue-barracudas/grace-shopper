@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteProd, editProdQuant, getCart} from '../store/cart'
 import Button from '@material-ui/core/Button'
-import {EmptyCart} from './emptycart'
+import EmptyCart from './emptycart'
 
 class Cart extends Component {
   constructor() {

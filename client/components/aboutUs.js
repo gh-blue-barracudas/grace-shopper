@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
+import {Link} from 'react-router-dom'
 
 const AboutUs = () => {
   return (
@@ -30,6 +31,7 @@ const AboutUs = () => {
             We're always constantly hard at work at developing a wider portfolio
             of dreams and nightmares. After all, life is too short not to dream.
           </p>
+
           <Button
             style={{
               opacity: '50%',
@@ -38,10 +40,10 @@ const AboutUs = () => {
               width: '15vw'
             }}
           >
-            SHOP ALL
+            <Link to="/products/">SHOP ALL </Link>
           </Button>
         </div>
-        <img id="aboutUsImg" src="https://i.imgur.com/VZvR5DI.gif" />
+        <img id="aboutUsImg" src="https://i.imgur.com/Dk1I11u.gif" />
       </div>
     </div>
   )
