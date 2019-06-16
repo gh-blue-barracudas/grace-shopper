@@ -31,7 +31,6 @@ class SingleProduct extends Component {
   render() {
     return this.props.selectedProduct ? (
       <div id="selected_product_parent">
-        {/*  <img id="selImage" src={this.props.selectedProduct.imageUrl} /> */}
         <div className="selImageContainer">
           <img id="selImage" src={this.props.selectedProduct.imageUrl} />
           <div className="overlay">
@@ -40,7 +39,6 @@ class SingleProduct extends Component {
                 className="overlayImg"
                 src="https://i.imgur.com/XVwcwAs.png"
               />
-              {/* https://i.ya-webdesign.com/images/fog-effect-png-3.png*/}
             </div>
           </div>
         </div>
