@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteProd, editProdQuant, getCart} from '../store/cart'
 import Button from '@material-ui/core/Button'
-// import {EmptyCart} from './emptycart'
+import {EmptyCart} from './emptycart'
 
 class Cart extends Component {
   constructor() {
@@ -10,12 +10,16 @@ class Cart extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this)
     this.handleEditQuantity = this.handleEditQuantity.bind(this)
+    this.handleShoppingClick = this.handleShoppingClick.bind(this)
   }
   componentDidMount() {
     this.props.getCart()
   }
   handleCheckoutClick() {
     this.props.history.push('/checkout')
+  }
+  handleShoppingClick() {
+    this.props.history.push('/products')
   }
   handleEditQuantity(cartId, prodId, quantityEvt) {
     this.props.editProdQuant(cartId, prodId, quantityEvt)
@@ -24,9 +28,8 @@ class Cart extends Component {
     this.props.deleteProd(cartId, prodId)
   }
   render() {
-    //console.log('CART: ', this.props.cart[0])
-    console.log('MY CART: ', this.props.cart[0])
-    if (this.props.cart[0]) {
+    //if my cart is not undefined and cart.products array has products
+    if (this.props.cart[0] && this.props.cart[0].products.length > 0) {
       const cart = this.props.cart[0].products
       return (
         <div className="cart">
@@ -85,7 +88,7 @@ class Cart extends Component {
             <div className="total">
               <p>TOTAL: ${this.props.total}.00</p>
             </div>
-            <div className="checkout">
+            <div className="buttonUI">
               <Button
                 style={{
                   opacity: '50%',
@@ -97,16 +100,25 @@ class Cart extends Component {
               >
                 Checkout
               </Button>
+              {/* next line is to add space in between buttons */}
+              &nbsp;&nbsp;&nbsp;
+              <Button
+                style={{
+                  opacity: '50%',
+                  backgroundColor: '#fff2ab',
+                  marginTop: '20px',
+                  width: '15vw'
+                }}
+                onClick={this.handleShoppingClick}
+              >
+                CONTINUE SHOPPING
+              </Button>
             </div>
           </div>
         </div>
       )
     } else {
-      return (
-        <div>
-          <h1>No Cart</h1>
-        </div>
-      )
+      return <EmptyCart />
     }
   }
 }
