@@ -40,7 +40,7 @@ class SingleProduct extends Component {
             style={{
               opacity: '50%',
               backgroundColor: '#fff2ab',
-              'margin-top': '20px'
+              marginTop: '20px'
             }}
             className="sel_prod_btn"
             onClick={this.handleSubmit}
