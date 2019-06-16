@@ -11,7 +11,7 @@ class OrderConfirm extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="orderConfirm">
         <h1>ORDER COMPLETED</h1>
         <Button
           style={{

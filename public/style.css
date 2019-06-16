@@ -520,6 +520,20 @@ img:hover {
   cursor: pointer;
 }
 
+/*Check out*/
+
+.checkout {
+  margin-bottom: 200px;
+}
+
+/*Order Confirm*/
+#orderConfirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px;
+}
+
 /* Not Found */
 
 #notFoundPage {
