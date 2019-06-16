@@ -25,11 +25,14 @@ class AllProducts extends React.Component {
                 title={`${product.productName}`}
                 className="product_card"
               />
-              {/* <Link to={`/products/${product.id}`}>
-                <img className="product_image" src={product.imageUrl} />
-              </Link> */}
             </Link>
-            <Button color="secondary" className="product_btn">
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: '#3e3e3e'
+              }}
+              className="product_btn"
+            >
               <Link to={`/products/${product.id}`}>{product.productName}</Link>
             </Button>
           </Card>
