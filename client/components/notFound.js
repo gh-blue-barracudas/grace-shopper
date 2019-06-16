@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const NotFound = () => {
   return (
-    <div>
+    <div id="notFoundPage">
       <img src="https://i.imgur.com/KYnQYGz.png" width="700px" height="auto" />
       <Button
         style={{

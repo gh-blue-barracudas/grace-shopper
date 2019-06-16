@@ -31,16 +31,14 @@ class SingleProduct extends Component {
   render() {
     return this.props.selectedProduct ? (
       <div id="selected_product_parent">
-        {/*  <img id="selImage" src={this.props.selectedProduct.imageUrl} /> */}
         <div className="selImageContainer">
           <img id="selImage" src={this.props.selectedProduct.imageUrl} />
           <div className="overlay">
             <div className="cover">
               <img
                 className="overlayImg"
-                src="https://i.imgur.com/XVwcwAs.png"
+                src="https://i.imgur.com/KX09sdf.png"
               />
-              {/* https://i.ya-webdesign.com/images/fog-effect-png-3.png*/}
             </div>
           </div>
         </div>
