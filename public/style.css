@@ -99,7 +99,6 @@ i {
   width: 16vw;
   height: auto;
   transform: translate(-50%, -50%);
-  /* -ms-transform: translate(-50%, -50%); */
   background-color: #fff2ab;
   color: black;
   font-size: 30px;
