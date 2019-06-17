@@ -10,6 +10,12 @@ const UPDATE_TOTAL = 'UPDATE_TOTAL'
 
 // Action Creators
 
+const gotCart = (cart, id) => ({
+  type: GET_CART,
+  cart,
+  id
+})
+
 const createdCart = id => ({
   type: CREATE_CART,
   id
@@ -49,13 +55,19 @@ const completedCart = () => ({
   type: COMP_CHCKOUT
 })
 
-const gotCart = (cart, id) => ({
-  type: GET_CART,
-  cart,
-  id
-})
-
 // Thunk Creators
+
+export const getCart = () => {
+  return async dispatch => {
+    try {
+      const {data} = await Axios.get(`/api/carts`)
+      dispatch(gotCart(data.products, data.id))
+      dispatch(updateTotal(data.products))
+    } catch (error) {
+      console.log('Error retrieving cart: ', error)
+    }
+  }
+}
 
 export const createCart = () => {
   return async dispatch => {
@@ -74,8 +86,8 @@ export const addProd = (cartId, prodId) => {
       const {data} = await Axios.put(`/api/carts/${cartId}/addProduct`, {
         productId: prodId
       })
-      dispatch(addedProd(data))
-      dispatch(updateTotal(data[0].products))
+      dispatch(addedProd(data.products))
+      dispatch(updateTotal(data.products))
     } catch (error) {
       console.log('Error adding product: ', error)
     }
@@ -88,8 +100,8 @@ export const deleteProd = (cartId, prodId) => {
       const {data} = await Axios.put(`/api/carts/${cartId}/deleteProduct`, {
         productId: prodId
       })
-      dispatch(deletedProd(data))
-      dispatch(updateTotal(data[0].products))
+      dispatch(deletedProd(data.products))
+      dispatch(updateTotal(data.products))
     } catch (error) {
       console.log('Error deleting product: ', error)
     }
@@ -103,8 +115,8 @@ export const editProdQuant = (cartId, prodId, quantity) => {
         productId: prodId,
         quantity
       })
-      dispatch(editedProdQuantity(data))
-      dispatch(updateTotal(data[0].products))
+      dispatch(editedProdQuantity(data.products))
+      dispatch(updateTotal(data.products))
     } catch (error) {
       console.log('Error editing quantity: ', error)
     }
@@ -122,18 +134,6 @@ export const completeCheckout = cartId => {
   }
 }
 
-export const getCart = () => {
-  return async dispatch => {
-    try {
-      const {data} = await Axios.get(`/api/carts`)
-      dispatch(gotCart(data, data[0].id))
-      dispatch(updateTotal(data[0].products))
-    } catch (error) {
-      console.log('Error retrieving cart: ', error)
-    }
-  }
-}
-
 // Initial State
 const defaultCart = {
   id: 0,
@@ -143,6 +143,8 @@ const defaultCart = {
 
 export default function(state = defaultCart, action) {
   switch (action.type) {
+    case GET_CART:
+      return {...state, cart: action.cart, id: action.id}
     case CREATE_CART:
       return {...state, id: action.id}
     case ADD_PROD:
@@ -153,8 +155,6 @@ export default function(state = defaultCart, action) {
       return {...state, cart: action.cart}
     case COMP_CHCKOUT:
       return defaultCart
-    case GET_CART:
-      return {...state, cart: action.cart, id: action.id}
     case UPDATE_TOTAL:
       return {...state, total: action.total}
     default:
