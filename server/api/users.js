@@ -81,3 +81,25 @@ router.put('/address', async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/homeInfo', async (req, res, next) => {
+  try {
+    if (req.user) {
+      let [numOfAffectedUsers, affectedUsers] = await User.update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email
+        },
+        {
+          where: {id: req.user.id},
+          returning: true,
+          plain: true
+        }
+      )
+      res.status(202).send(affectedUsers)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
