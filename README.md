@@ -6,7 +6,7 @@ Our team is comprised of Amaris Chang, Ahsun Kim, Dyane Ramos, and Talia Fayaz.
 
 ## Deployed copy
 
-* Our deployed site can be viewed at this link! \*\*\*
+* Our deployed site can be viewed at this link: http://graceshopper-bluebarracudas.herokuapp.com/
 
 ## Setup
 
