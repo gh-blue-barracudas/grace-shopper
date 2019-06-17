@@ -21,7 +21,8 @@ router.get('/orders', async (req, res, next) => {
     if (req.user) {
       const userOrders = await Order.findAll({
         where: {
-          userId: req.user.id
+          userId: req.user.id,
+          completed: true
         }
       })
       res.json(userOrders)

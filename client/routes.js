@@ -13,7 +13,8 @@ import {
   OrderConfirm,
   NotFound,
   AboutUs,
-  UserHome
+  UserHome,
+  OrderHistory
 } from './components'
 import {me} from './store'
 
@@ -40,6 +41,7 @@ class Routes extends Component {
           <Route path="/cart" component={ConnectedCart} />
           <Route path="/complete" component={OrderConfirm} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/orderHistory" component={OrderHistory} />
           <Route path="/about" component={AboutUs} />
           {isLoggedIn && (
             <Switch>
