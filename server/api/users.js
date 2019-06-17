@@ -25,6 +25,25 @@ router.get('/orders', async (req, res, next) => {
         }
       })
       res.json(userOrders)
+    } else {
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/profile', async (req, res, next) => {
+  try {
+    if (req.user) {
+      const userInfo = await User.findOne({
+        where: {
+          id: req.user.id
+        }
+      })
+      res.json(userInfo)
+    } else {
+      next()
     }
   } catch (error) {
     next(error)
