@@ -1,7 +1,7 @@
 {
   "name": "graceshopper",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "an ecommerce site designed to sell dream potions",
   "engines": {
     "node": ">= 7.0.0"
   },
