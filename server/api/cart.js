@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
     let cart = await Order.findOrCreate({
       where: {session: req.sessionID, completed: false}
     })
-    res.status(200).send(cart[0])
+    res.status(201).send(cart[0])
   } catch (error) {
     next(error)
   }
