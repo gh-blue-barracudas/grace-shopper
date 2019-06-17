@@ -16,18 +16,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// Route to grab order information from userId
-router.get('/:userId/orders', async (req, res, next) => {
+router.get('/orders', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      include: {
-        model: Order
-      }
-    })
-    if (user) {
-      res.status(200).send({
-        orders: user.orders
+    if (req.user) {
+      const userOrders = await Order.findAll({
+        where: {
+          userId: req.user.id,
+          completed: true
+        }
       })
+      res.json(userOrders)
     } else {
       next()
     }
@@ -36,26 +34,48 @@ router.get('/:userId/orders', async (req, res, next) => {
   }
 })
 
-// Route to update/store the billing address/shipping address for every user
-router.put('/:userId/address', async (req, res, next) => {
+router.get('/profile', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
-    if (user) {
-      user.update({
-        billingAddress1: req.body.billingAddress1,
-        billingAddress2: req.body.billingAddress2,
-        billingCity: req.body.billingCity,
-        billingState: req.body.billingState,
-        billingZip: req.body.billingZip,
-        shippingAddress1: req.body.shippingAddress1,
-        shippingAddress2: req.body.shippingAddress2,
-        shippingCity: req.body.shippingCity,
-        shippingState: req.body.shippingState,
-        shippingZip: req.body.shippingZip
+    if (req.user) {
+      const userInfo = await User.findOne({
+        where: {
+          id: req.user.id
+        }
       })
-      res.status(202).send(user)
+      res.json(userInfo)
     } else {
       next()
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/address', async (req, res, next) => {
+  try {
+    if (req.user) {
+      await User.update(
+        {
+          billingAddress1: req.body.billingAddress1,
+          billingAddress2: req.body.billingAddress2,
+          billingCity: req.body.billingCity,
+          billingState: req.body.billingState,
+          billingZip: req.body.billingZip,
+          shippingAddress1: req.body.shippingAddress1,
+          shippingAddress2: req.body.shippingAddress2,
+          shippingCity: req.body.shippingCity,
+          shippingState: req.body.shippingState,
+          shippingZip: req.body.shippingZip
+        },
+        {
+          where: {id: req.user.id},
+          returning: true,
+          plain: true
+        }
+      )
+      res.sendStatus(202)
+    } else {
+      res.sendStatus(204)
     }
   } catch (error) {
     next(error)

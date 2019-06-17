@@ -6,17 +6,30 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const UPDATE_USER_ADDRESS = 'UPDATE_USER_ADDRESS'
+const GET_USER_ORDERS = 'GET_USER_ORDERS'
 
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = {
+  address: {},
+  orders: []
+}
 
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const updateUserAddress = address => ({
+  type: UPDATE_USER_ADDRESS,
+  address
+})
+const getUserOrders = orders => ({
+  type: GET_USER_ORDERS,
+  orders
+})
 
 /**
  * THUNK CREATORS
@@ -71,6 +84,24 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const fetchOrderHistory = () => async dispatch => {
+  try {
+    const {data} = await axios.get('/api/users/orders')
+    dispatch(getUserOrders(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const updateUserAddressThunk = formData => async dispatch => {
+  try {
+    await axios.put('/api/users/address', formData)
+    dispatch(updateUserAddress(formData))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -80,6 +111,10 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_USER_ADDRESS:
+      return {...state, address: action.address}
+    case GET_USER_ORDERS:
+      return {...state, orders: action.orders}
     default:
       return state
   }

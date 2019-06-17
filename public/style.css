@@ -543,6 +543,10 @@ img:hover {
   align-items: center;
 }
 
+
+.order_history_parent {
+  color: white;
+
 /*User Home*/
 .userHome {
   text-align: center;
