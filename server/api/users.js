@@ -16,20 +16,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// Route to grab order information from userId
-router.get('/:userId/orders', async (req, res, next) => {
+router.get('/orders', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId, {
-      include: {
-        model: Order
-      }
-    })
-    if (user) {
-      res.status(200).send({
-        orders: user.orders
+    if (req.user) {
+      const userOrders = await Order.findAll({
+        where: {
+          userId: req.user.id
+        }
       })
-    } else {
-      next()
+      res.json(userOrders)
     }
   } catch (error) {
     next(error)
