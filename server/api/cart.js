@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
       },
       include: [{model: Product}]
     })
-    res.status(200).send(allOrders)
+    res.status(200).send(allOrders[0])
   } catch (error) {
     next(error)
   }
@@ -62,7 +62,7 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
       include: [{model: Product}]
     })
 
-    res.status(202).send(allOrders)
+    res.status(202).send(allOrders[0])
   } catch (error) {
     next(error)
   }
@@ -81,7 +81,7 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
         },
         include: [{model: Product}]
       })
-      res.status(202).send(allOrders)
+      res.status(202).send(allOrders[0])
     } else {
       next()
     }
@@ -103,7 +103,7 @@ router.put('/:orderId/editProdQuantity', async (req, res, next) => {
         },
         include: [{model: Product}]
       })
-      res.status(202).send(allOrders)
+      res.status(202).send(allOrders[0])
     } else {
       next()
     }
@@ -118,7 +118,6 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
       if (req.user) {
-        console.log('I am signed in')
         await order.update({
           userId: req.user.id,
           completed: true

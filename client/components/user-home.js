@@ -12,11 +12,14 @@ const UserHome = props => {
   const {email, firstName, lastName} = props
 
   return (
-    <div>
+    <div className="userHome">
+      <h1>Welcome, Dreamer </h1>
+      <img src="https://www.success.com/wp-content/uploads/legacy/sites/default/files/main/articles/inspiringquotesaboutbeingadreamer.jpg" />
+      <h2>Account Information</h2>
       <h3>
-        Welcome, {firstName} {lastName}
+        Name: {firstName} {lastName}
       </h3>
-      <h4>Email: {email}</h4>
+      <h3>Email: {email}</h3>
       <Link to="/orderHistory">
         <Button
           style={{
