@@ -2,19 +2,39 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button'
 import {completeCheckout} from '../store/cart'
+import {updateUserAddressThunk} from '../store/user'
+
+const defaultState = {
+  name: '',
+  billingAddress1: '',
+  billingAddress2: '',
+  billingCity: '',
+  billingState: '',
+  billingZip: 0,
+  shippingAddress1: '',
+  shippingAddress2: '',
+  shippingCity: '',
+  shippingState: '',
+  shippingZip: 0
+}
 
 class Checkout extends Component {
   constructor() {
     super()
+    this.state = defaultState
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
-  handleClick() {
-    this.props.completeCheckout(this.props.id)
-    this.props.history.push('/complete')
-  }
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault()
+    await this.props.completeCheckout(this.props.id)
+    this.props.history.push('/complete')
+    this.props.updateAddress(this.state)
+  }
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
   }
   render() {
     return (
@@ -24,20 +44,47 @@ class Checkout extends Component {
           <div className="billing">
             <h3>BILLING</h3>
             <div>
-              <input name="name" type="text" placeholder="NAME" />
+              <input
+                onChange={this.handleChange}
+                name="name"
+                type="text"
+                placeholder="NAME"
+              />
             </div>
             <div>
-              <input name="address1" type="text" placeholder="ADDRESS 1" />
+              <input
+                onChange={this.handleChange}
+                name="billingAddress1"
+                defaultValue={this.state.billingAddress1}
+                type="text"
+                placeholder="ADDRESS 1"
+              />
             </div>
             <div>
-              <input name="address2" type="text" placeholder="ADDRESS 2" />
+              <input
+                onChange={this.handleChange}
+                name="billingAddress2"
+                value={this.state.billingAddress2}
+                type="text"
+                placeholder="ADDRESS 2"
+              />
             </div>
             <div>
               <div>
-                <input name="city" type="text" placeholder="CITY" />
+                <input
+                  onChange={this.handleChange}
+                  name="billingCity"
+                  value={this.state.billingCity}
+                  type="text"
+                  placeholder="CITY"
+                />
               </div>
               <div>
-                <select>
+                <select
+                  defaultValue={this.state.billingState}
+                  onChange={this.handleChange}
+                  name="billingState"
+                >
                   <option default>STATE</option>
                   <option value="AL">AL</option>
                   <option value="AK">AK</option>
@@ -95,26 +142,31 @@ class Checkout extends Component {
             </div>
             <div>
               <input
-                name="zip"
+                onChange={this.handleChange}
+                name="billingZip"
+                value={this.state.billingZip}
                 type="text"
                 inputMode="numeric"
-                pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
+                // pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
                 placeholder="ZIP CODE"
               />
             </div>
             <div>
               <input
+                onChange={this.handleChange}
                 name="cardNumber"
                 type="text"
                 inputMode="numeric"
-                pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
+                // pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
                 placeholder="CREDIT CARD NUMBER"
               />
             </div>
-            <select>
-              <option value="" disabled selected>
-                EXP MONTH
-              </option>
+            <select
+              defaultValue={this.state.expiryMonth}
+              onChange={this.handleChange}
+              name="expiryMonth"
+            >
+              <option value="January">EXP MONTH</option>
               <option value="January">January</option>
               <option value="February">February</option>
               <option value="March">March</option>
@@ -130,6 +182,7 @@ class Checkout extends Component {
             <div>
               <div>
                 <input
+                  onChange={this.handleChange}
                   name="expYear"
                   type="text"
                   inputMode="numeric"
@@ -138,6 +191,7 @@ class Checkout extends Component {
               </div>
               <div>
                 <input
+                  onChange={this.handleChange}
                   name="cvv"
                   type="text"
                   inputMode="numeric"
@@ -152,20 +206,39 @@ class Checkout extends Component {
               <input name="name" type="text" placeholder="NAME" />
             </div>
             <div>
-              <input name="address1" type="text" placeholder="ADDRESS 1" />
+              <input
+                onChange={this.handleChange}
+                name="shippingAddress1"
+                value={this.state.shippingAddress1}
+                type="text"
+                placeholder="ADDRESS 1"
+              />
             </div>
             <div>
-              <input name="address2" type="text" placeholder="ADDRESS 2" />
+              <input
+                onChange={this.handleChange}
+                name="shippingAddress2"
+                value={this.state.shippingAddress2}
+                type="text"
+                placeholder="ADDRESS 2"
+              />
             </div>
             <div>
               <div>
-                <input name="city" type="text" placeholder="CITY" />
+                <input
+                  onChange={this.handleChange}
+                  name="shippingCity"
+                  type="text"
+                  placeholder="CITY"
+                />
               </div>
               <div>
-                <select>
-                  <option value="" disabled selected>
-                    STATE
-                  </option>
+                <select
+                  onChange={this.handleChange}
+                  defaultValue={this.state.shippingState}
+                  name="shippingState"
+                >
+                  <option value="AL">STATE</option>
                   <option value="AL">AL</option>
                   <option value="AK">AK</option>
                   <option value="AR">AR</option>
@@ -222,10 +295,13 @@ class Checkout extends Component {
             </div>
             <div>
               <input
-                name="zip"
+                onChange={this.handleChange}
+                name="shippingZip"
+                value={this.state.shippingZip}
                 type="text"
                 inputMode="numeric"
-                pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
+                //regex pattern throwing error
+                // pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$"
                 placeholder="ZIP CODE"
               />
             </div>
@@ -242,7 +318,8 @@ class Checkout extends Component {
             marginTop: '20px',
             width: '15vw'
           }}
-          onClick={this.handleClick}
+          onClick={this.handleSubmit}
+          type="submit"
         >
           Complete Order
         </Button>
@@ -256,6 +333,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  updateAddress: address => dispatch(updateUserAddressThunk(address)),
   completeCheckout: cartId => dispatch(completeCheckout(cartId))
 })
 

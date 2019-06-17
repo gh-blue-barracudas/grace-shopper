@@ -36,26 +36,31 @@ router.get('/:userId/orders', async (req, res, next) => {
   }
 })
 
-// Route to update/store the billing address/shipping address for every user
-router.put('/:userId/address', async (req, res, next) => {
+router.put('/address', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
-    if (user) {
-      user.update({
-        billingAddress1: req.body.billingAddress1,
-        billingAddress2: req.body.billingAddress2,
-        billingCity: req.body.billingCity,
-        billingState: req.body.billingState,
-        billingZip: req.body.billingZip,
-        shippingAddress1: req.body.shippingAddress1,
-        shippingAddress2: req.body.shippingAddress2,
-        shippingCity: req.body.shippingCity,
-        shippingState: req.body.shippingState,
-        shippingZip: req.body.shippingZip
-      })
-      res.status(202).send(user)
+    if (req.user) {
+      await User.update(
+        {
+          billingAddress1: req.body.billingAddress1,
+          billingAddress2: req.body.billingAddress2,
+          billingCity: req.body.billingCity,
+          billingState: req.body.billingState,
+          billingZip: req.body.billingZip,
+          shippingAddress1: req.body.shippingAddress1,
+          shippingAddress2: req.body.shippingAddress2,
+          shippingCity: req.body.shippingCity,
+          shippingState: req.body.shippingState,
+          shippingZip: req.body.shippingZip
+        },
+        {
+          where: {id: req.user.id},
+          returning: true,
+          plain: true
+        }
+      )
+      res.sendStatus(202)
     } else {
-      next()
+      res.sendStatus(204)
     }
   } catch (error) {
     next(error)

@@ -38,7 +38,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   billingZip: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   shippingAddress1: {
     type: Sequelize.STRING
@@ -53,7 +53,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   shippingZip: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   salt: {
     type: Sequelize.STRING,
