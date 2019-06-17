@@ -10,12 +10,12 @@ const defaultState = {
   billingAddress2: '',
   billingCity: '',
   billingState: '',
-  billingZip: 0,
+  billingZip: '',
   shippingAddress1: '',
   shippingAddress2: '',
   shippingCity: '',
   shippingState: '',
-  shippingZip: 0
+  shippingZip: ''
 }
 
 class Checkout extends Component {
