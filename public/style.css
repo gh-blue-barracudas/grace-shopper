@@ -142,12 +142,12 @@ i {
 }
 
 .container h1 {
-  font-family: ‘Noto Serif KR’, serif;
+  font-family: 'Nanum Myeongjo', serif;
   position: absolute;
   color: #d0c9ff;
   font-size: 80px;
   font-size: 3.9vw;
-  font-weight: 300;
+  font-weight: 100;
   top: 30%;
   left: 48%;
   transform: translate(-50%, -50%);

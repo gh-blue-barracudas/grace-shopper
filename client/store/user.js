@@ -8,6 +8,7 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const UPDATE_USER_ADDRESS = 'UPDATE_USER_ADDRESS'
 const GET_USER_ORDERS = 'GET_USER_ORDERS'
+const UPDATE_USER_HOME_INFO = 'UPDATE_USER_HOME_INFO'
 
 /**
  * INITIAL STATE
@@ -29,6 +30,10 @@ const updateUserAddress = address => ({
 const getUserOrders = orders => ({
   type: GET_USER_ORDERS,
   orders
+})
+const updatedUserHomeInfo = user => ({
+  type: UPDATE_USER_HOME_INFO,
+  user
 })
 
 /**
@@ -102,6 +107,15 @@ export const updateUserAddressThunk = formData => async dispatch => {
   }
 }
 
+export const updateUserThunk = formData => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/users/homeInfo', formData)
+    dispatch(updatedUserHomeInfo(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -115,6 +129,13 @@ export default function(state = defaultUser, action) {
       return {...state, address: action.address}
     case GET_USER_ORDERS:
       return {...state, orders: action.orders}
+    case UPDATE_USER_HOME_INFO:
+      return {
+        ...state,
+        email: action.user.email,
+        firstName: action.user.firstName,
+        lastName: action.user.lastName
+      }
     default:
       return state
   }

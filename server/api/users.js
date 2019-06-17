@@ -85,12 +85,12 @@ router.put('/address', async (req, res, next) => {
   }
 })
 
+
 router.get('/orders/checkout', async (req, res) => {
   res.send(`Add your Stripe Secret Key to the .require('stripe" statement!`)
 })
 
 router.post('/checkout', async (req, res, next) => {
-  console.log('Request:', req.body)
   let error
   let status
   try {
@@ -123,12 +123,32 @@ router.post('/checkout', async (req, res, next) => {
         idempotency_key
       }
     )
-    console.log('Charge:', {charge})
     status = 'success'
   } catch (err) {
     console.error('Error:', err)
     status = 'failure'
   }
-
   res.json({error, status})
+})
+
+router.put('/homeInfo', async (req, res, next) => {
+  try {
+    if (req.user) {
+      let [numOfAffectedUsers, affectedUsers] = await User.update(
+        {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email
+        },
+        {
+          where: {id: req.user.id},
+          returning: true,
+          plain: true
+        }
+      )
+      res.status(202).send(affectedUsers)
+    }
+  } catch (error) {
+    next(error)
+  }
 })

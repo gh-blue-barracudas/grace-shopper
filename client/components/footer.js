@@ -9,9 +9,7 @@ const Footer = () => {
       </Link>
       <div>
         <h2 className="nav_link">CONTACT US</h2>
-        <a href="mailto: dreaming@graceshopper.com">
-          dreaming@graceshopper.com
-        </a>
+        dreaming@graceshopper.com
       </div>
     </div>
   )
