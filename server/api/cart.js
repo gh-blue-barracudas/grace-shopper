@@ -47,7 +47,9 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
     })
     // Check if there is a row in the orderPrd table where this order is associated with the productId that we're sending in the req.body
     if (order) {
-      await order.update({quantity: order.quantity + 1})
+      await order.update({
+        quantity: order.quantity + 1
+      })
     } else {
       await orderPrd.create({
         productId: req.body.productId,
@@ -120,10 +122,11 @@ router.put('/:orderId/completedOrder', async (req, res, next) => {
       if (req.user) {
         await order.update({
           userId: req.user.id,
-          completed: true
+          completed: true,
+          total: req.body.total
         })
       } else {
-        await order.update({completed: true})
+        await order.update({completed: true, total: req.body.total})
       }
       res.status(202).send('completed')
     } else {
