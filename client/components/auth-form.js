@@ -10,42 +10,60 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <div id="auth_form_parent">
+      <form id="auth_form" onSubmit={handleSubmit} name={name}>
         {props.name === 'signup' && (
           <div>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name</small>
-              </label>
-              <input name="firstName" type="text" />
+            <div className="field_parent" id="nameLabel">
+              <label htmlFor="firstName">First Name</label>
+              <input
+                name="firstName"
+                type="text"
+                required
+                title="First Name Required"
+              />
             </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name</small>
-              </label>
-              <input name="lastName" type="text" />
+            <div className="field_parent">
+              <label htmlFor="lastName">Last Name</label>
+              <input
+                name="lastName"
+                type="text"
+                required
+                title="Last Name Required"
+              />
             </div>
           </div>
         )}
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+        <div className="field_parent">
+          <label htmlFor="email">Email</label>
+          <input name="email" type="text" required title="E-mail Required" />
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+        <div className="field_parent">
+          <label htmlFor="password">Password</label>
+          <input
+            name="password"
+            type="password"
+            pattern=".{8,}"
+            required
+            title="Password required, min 8 characters"
+          />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div id="auth_button_error_parent">
+          <div id="auth_button">
+            <button type="submit">{displayName}</button>
+          </div>
+          {error &&
+            error.response && (
+              <div id="auth_error"> {error.response.data} </div>
+            )}
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div id="auth_Google">
+        <a href="/auth/google">
+          {displayName} with
+          <img id="googleImg" src="https://i.imgur.com/TbBFjBO.png" />
+        </a>
+      </div>
     </div>
   )
 }
@@ -60,7 +78,7 @@ const AuthForm = props => {
 const mapLogin = state => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'login',
     error: state.user.error
   }
 }
@@ -68,7 +86,7 @@ const mapLogin = state => {
 const mapSignup = state => {
   return {
     name: 'signup',
-    displayName: 'Sign Up',
+    displayName: 'sign up',
     error: state.user.error
   }
 }
@@ -83,7 +101,7 @@ const mapDispatch = dispatch => {
       if (formName === 'signup') {
         const firstName = evt.target.firstName.value
         const lastName = evt.target.lastName.value
-        dispatch(auth(email, password, firstName, lastName, formName))
+        dispatch(auth(email, password, formName, firstName, lastName))
       } else {
         dispatch(auth(email, password, formName))
       }

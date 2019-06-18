@@ -3,7 +3,7 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
-
+export {default as OrderHistory} from './order-history'
 export {default as EmptyCart} from './emptycart'
 export {default as ConnectedCart} from './cart'
 export {default as AllProducts} from './all-products'

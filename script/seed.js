@@ -40,7 +40,7 @@ async function seed() {
     {
       productName: 'Free Money',
       price: 200.00,
-      description: `You’re entering finals season in college when you realize you’re still enrolled in the class you thought you withdrew from at the start of semester. You speak to the professor who has no sympathy for you and tells you you have no choice but to take the exam as you’ve received zeros on all his other mandatory course assignments. You enter the dark, chilly exam room in hopes that the exam is multiple choice and you can get some points to only find out the whole exam is open-ended. The race against time is on where you futilely and anxiously try to save your already mediocre GPA.`,
+      description: `Do you want to break out your current job but still make money? Now it is possible! Buying this dream, you will be able to get money magically and live life like a millionaire.`,
       imageUrl: 'https://i.imgur.com/kwvpePI.png',
       productType: 'dream'
     },

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteProd, editProdQuant, getCart} from '../store/cart'
 import Button from '@material-ui/core/Button'
-import {EmptyCart} from './emptycart'
+import EmptyCart from './emptycart'
 
 class Cart extends Component {
   constructor() {
@@ -14,6 +14,11 @@ class Cart extends Component {
   }
   componentDidMount() {
     this.props.getCart()
+  }
+  componentDidUpdate() {
+    if (!this.props.cart) {
+      this.props.getCart()
+    }
   }
   handleCheckoutClick() {
     this.props.history.push('/checkout')
@@ -28,9 +33,9 @@ class Cart extends Component {
     this.props.deleteProd(cartId, prodId)
   }
   render() {
+    const cart = this.props.cart
     //if my cart is not undefined and cart.products array has products
-    if (this.props.cart[0] && this.props.cart[0].products.length > 0) {
-      const cart = this.props.cart[0].products
+    if (cart && cart.length > 0) {
       return (
         <div className="cart">
           <div className="cartName">

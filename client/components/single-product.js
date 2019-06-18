@@ -31,7 +31,17 @@ class SingleProduct extends Component {
   render() {
     return this.props.selectedProduct ? (
       <div id="selected_product_parent">
-        <img id="selImage" src={this.props.selectedProduct.imageUrl} />
+        <div className="selImageContainer">
+          <img id="selImage" src={this.props.selectedProduct.imageUrl} />
+          <div className="overlay">
+            <div className="cover">
+              <img
+                className="overlayImg"
+                src="https://i.imgur.com/KX09sdf.png"
+              />
+            </div>
+          </div>
+        </div>
         <div id="sel_info">
           <h1>{this.props.selectedProduct.productName}</h1>
           <h2>${this.props.selectedProduct.price}</h2>
