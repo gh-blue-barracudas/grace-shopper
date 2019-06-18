@@ -63,6 +63,28 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  //admin auth check
+  function requireAdmin() {
+    return function(req, res, next) {
+      User.findOne({admin: true}, function(err, user) {
+        if (err) {
+          return next(err)
+        }
+
+        if (!user) {
+          // Do something - the user does not exist
+        }
+
+        if (!user.admin) {
+          // Do something - the user exists but is no admin user
+        }
+
+        // Hand over control to passport
+        next()
+      })
+    }
+  }
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
