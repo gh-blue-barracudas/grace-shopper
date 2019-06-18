@@ -36,6 +36,7 @@ router.post('/', async (req, res, next) => {
 //if guest => user, now we have a passport.user, then i want to update the above instance
 
 // to add products to the cart
+
 router.put('/:orderId/addProduct', async (req, res, next) => {
   try {
     // Find order

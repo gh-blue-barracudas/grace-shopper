@@ -5,7 +5,7 @@ const compression = require('compression')
 const session = require('express-session')
 const passport = require('passport')
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
-const db = require('./db')
+const {db, Order, User} = require('./db')
 const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
@@ -63,25 +63,28 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  //admin auth check
-  function requireAdmin() {
-    return function(req, res, next) {
-      User.findOne({admin: true}, function(err, user) {
-        if (err) {
-          return next(err)
-        }
-
-        if (!user) {
-          // Do something - the user does not exist
-        }
-
-        if (!user.admin) {
-          // Do something - the user exists but is no admin user
-        }
-
-        // Hand over control to passport
-        next()
-      })
+  //admin/user/guest auth check
+  async function authCheck(req, res, next) {
+    const currOrder = await Order.findOne({
+      where: {session: req.sessionId},
+      include: [{model: User, where: {id: req.user.id}}]
+    })
+    if (currOrder.user.admin) {
+      //not sure if this is right to check for admin
+      return next()
+    } else if (currOrder) {
+      return next()
+    } else {
+      const guestOrder = await Order.findOne({where: {session: req.sessionId}})
+      if (guestOrder) {
+        return next()
+      } else {
+        var err = new Error(
+          `Stop trying to hack peoples dreams. You're a nightmare.`
+        )
+        err.status = 401
+        return next(err)
+      }
     }
   }
 
