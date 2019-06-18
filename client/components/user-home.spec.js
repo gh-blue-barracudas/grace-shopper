@@ -9,14 +9,22 @@ import {UserHome} from './user-home'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('UserHome', () => {
-  let userHome
+describe('<UserHome /> component', () => {
+  let userHomeWrapper
 
-  beforeEach(() => {
-    userHome = shallow(<UserHome />)
+  beforeEach('Create component', () => {
+    userHomeWrapper = shallow(<UserHome email="amaris@gmail.com" />)
   })
 
-  it('renders Welcome, Dreamer text in an h1', () => {
-    expect(userHome.find('h1').text()).to.be.equal('Welcome, Dreamer ')
+  it('renders the welcome message in a h1', () => {
+    expect(userHomeWrapper.find('h1').text()).to.be.equal('Welcome, Dreamer ')
+  })
+
+  it('renders the account information in a h2', () => {
+    expect(userHomeWrapper.find('h2').text()).to.be.equal('Account Information')
+  })
+
+  it('has a `email` field initialized on state and is a string', () => {
+    expect(userHomeWrapper.state().email).to.be.a('string')
   })
 })
