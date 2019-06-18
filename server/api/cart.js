@@ -71,7 +71,7 @@ router.put('/:orderId/addProduct', authCheck, async (req, res, next) => {
   }
 })
 
-router.put('/:orderId/deleteProduct', async (req, res, next) => {
+router.put('/:orderId/deleteProduct', authCheck, async (req, res, next) => {
   try {
     let order = await orderPrd.findOne({
       where: {orderId: req.params.orderId, productId: req.body.productId}
@@ -93,7 +93,7 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
   }
 })
 
-router.put('/:orderId/editProdQuantity', async (req, res, next) => {
+router.put('/:orderId/editProdQuantity', authCheck, async (req, res, next) => {
   try {
     let order = await orderPrd.findOne({
       where: {orderId: req.params.orderId, productId: req.body.productId}
@@ -116,7 +116,7 @@ router.put('/:orderId/editProdQuantity', async (req, res, next) => {
 })
 
 // for when user has placed order - edit status of order route
-router.put('/:orderId/completedOrder', async (req, res, next) => {
+router.put('/:orderId/completedOrder', authCheck, async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {

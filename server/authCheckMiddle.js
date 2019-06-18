@@ -17,11 +17,13 @@ module.exports = (function() {
         if (guestOrder) {
           next()
         } else {
-          var err = new Error(
-            `Stop trying to hack people's dreams. You're a nightmare.`
-          )
-          err.status = 401
-          next(err)
+          // var err = new Error(
+          res
+            .status(401)
+            .send(`Stop trying to hack people's dreams. You're a nightmare.`)
+          // )
+          // err.status = 401
+          // next(err)
         }
       }
     }
