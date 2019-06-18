@@ -94,8 +94,6 @@ router.post('/checkout', async (req, res, next) => {
   let status
   try {
     const {product, addresses, token} = req.body
-
-    console.log('this is the req.body:', req.body)
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id
