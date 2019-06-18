@@ -13,7 +13,7 @@ describe('<UserHome /> component', () => {
   let userHomeWrapper
 
   beforeEach('Create component', () => {
-    userHomeWrapper = shallow(<UserHome />)
+    userHomeWrapper = shallow(<UserHome email="amaris@gmail.com" />)
   })
 
   it('renders the welcome message in a h1', () => {
@@ -22,5 +22,9 @@ describe('<UserHome /> component', () => {
 
   it('renders the account information in a h2', () => {
     expect(userHomeWrapper.find('h2').text()).to.be.equal('Account Information')
+  })
+
+  it('has a `email` field initialized on state', () => {
+    expect(userHomeWrapper.state().email).to.be.a('undefined')
   })
 })
