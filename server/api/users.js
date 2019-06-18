@@ -85,7 +85,6 @@ router.put('/address', async (req, res, next) => {
   }
 })
 
-
 router.get('/orders/checkout', async (req, res) => {
   res.send(`Add your Stripe Secret Key to the .require('stripe" statement!`)
 })
