@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const {Order, orderPrd, Product} = require('../db/models')
+const authCheck = require('../authCheckMiddle')
 
 // to get persistant cart
 router.get('/', async (req, res, next) => {
   try {
     let allOrders = await Order.findAll({
       where: {
-        session: req.sessionID,
+        session: req.session.id,
         completed: false
       },
       include: [{model: Product}]
@@ -23,9 +24,8 @@ router.post('/', async (req, res, next) => {
     //if signed in user has open cart, load that cart
     //if they are signed in and dont have an open cart,
     //then create below
-
     let cart = await Order.findOrCreate({
-      where: {session: req.sessionID, completed: false}
+      where: {session: req.session.id, completed: false}
     })
     res.status(201).send(cart[0])
   } catch (error) {
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
 
 // to add products to the cart
 
-router.put('/:orderId/addProduct', async (req, res, next) => {
+router.put('/:orderId/addProduct', authCheck, async (req, res, next) => {
   try {
     // Find order
     let order = await orderPrd.findOne({
