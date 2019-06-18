@@ -1,12 +1,15 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import REACTDOM from 'react-dom'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
-import {ToastContainer, toast} from 'react-toastify'
-import {getCart} from '../store/cart'
 
-toast.configure()
+import {completeCheckout} from '../store/cart'
+
+function completeCheckoutFnc(props) {
+  props.completeCheckout(props.id)
+  props.history.push('/complete')
+}
 
 function Stripe(props) {
   const [product] = React.useState({
@@ -14,32 +17,21 @@ function Stripe(props) {
   })
 
   async function handleToken(token, addresses) {
-    const res = await axios.post('/api/users/checkout', {
+    await axios.post('/api/users/checkout', {
       token,
+      addresses,
       product
     })
-    console.log('COMING FROM CLIENT: ', {token, addresses})
-    const {status} = res.data
-    if (status === 'success') {
-      toast('Success! Check emails for details', {type: 'success'})
-    } else {
-      toast('Something went wrong', {type: 'error'})
-    }
+    completeCheckoutFnc(props)
   }
   return (
-    <div className="checkout">
-      <ToastContainer />
-      <StripeCheckout
-        stripeKey="pk_test_6fRtJpRvChRUMT0bzzpk1v2q00ygHe3DSQ"
-        token={handleToken}
-        billingAddress
-        shippingAddress
-        amount={props.total * 100}
-      />
-      <h1>CHECK OUT</h1>
+    <div className="cart">
+      <div className="cartName">
+        <h1>CHECK OUT</h1>
+      </div>
       <div>
         <h3>ORDER REVIEW</h3>
-        <div>
+        <div className="orderContainer">
           <table className="orderTable">
             <thead>
               <tr>
@@ -59,8 +51,22 @@ function Stripe(props) {
               ))}
             </tbody>
           </table>
+          <br />
+        </div>
+      </div>
+      <div className="total_parent">
+        <div>
+          <p>TOTAL: ${props.total}.00</p>
           <div>
-            <p>TOTAL: ${props.total}.00</p>
+            <StripeCheckout
+              name="Grace Shopper"
+              image="https://i.imgur.com/4gYfWAx.png"
+              stripeKey="pk_test_6fRtJpRvChRUMT0bzzpk1v2q00ygHe3DSQ"
+              token={handleToken}
+              billingAddress
+              shippingAddress
+              amount={props.total * 100}
+            />
           </div>
         </div>
       </div>
@@ -74,4 +80,8 @@ const mapStateToProps = state => ({
   total: state.cart.total
 })
 
-export default connect(mapStateToProps)(Stripe)
+const mapDispatchToProps = dispatch => ({
+  completeCheckout: cartId => dispatch(completeCheckout(cartId))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Stripe)

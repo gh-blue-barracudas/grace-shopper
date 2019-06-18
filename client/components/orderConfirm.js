@@ -13,6 +13,7 @@ class OrderConfirm extends Component {
     return (
       <div id="orderConfirm">
         <h1>ORDER COMPLETED</h1>
+        <h3>Thank you for your order!</h3>
         <Button
           style={{
             opacity: '50%',
