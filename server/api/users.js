@@ -1,8 +1,8 @@
 const router = require('express').Router()
+require('../../secrets')
 const {User, Order} = require('../db/models')
 module.exports = router
-const stripe = require('stripe')('sk_test_tjWlFFD447mw8htkrmXiorw3009wcWw6Wt')
-
+const stripe = require('stripe')(process.env.STRIPE_TEST)
 const uuid = require('uuid/v4')
 
 router.get('/', async (req, res, next) => {

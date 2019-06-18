@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import REACTDOM from 'react-dom'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
+import '../../secrets'
 
 import {completeCheckout} from '../store/cart'
 
@@ -61,7 +62,7 @@ function Stripe(props) {
             <StripeCheckout
               name="Grace Shopper"
               image="https://i.imgur.com/4gYfWAx.png"
-              stripeKey="pk_test_6fRtJpRvChRUMT0bzzpk1v2q00ygHe3DSQ"
+              stripeKey={process.env.STRIPE_PUB}
               token={handleToken}
               billingAddress
               shippingAddress
