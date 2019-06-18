@@ -85,7 +85,6 @@ router.put('/address', async (req, res, next) => {
   }
 })
 
-
 router.get('/orders/checkout', async (req, res) => {
   res.send(`Add your Stripe Secret Key to the .require('stripe" statement!`)
 })
@@ -95,6 +94,7 @@ router.post('/checkout', async (req, res, next) => {
   let status
   try {
     const {product, token} = req.body
+
     console.log('this is the req.body:', req.body)
     const customer = await stripe.customers.create({
       email: token.email,

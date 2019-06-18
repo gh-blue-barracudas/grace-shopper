@@ -124,9 +124,10 @@ export const editProdQuant = (cartId, prodId, quantity) => {
 }
 
 export const completeCheckout = cartId => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     try {
-      await Axios.put(`/api/carts/${cartId}/completedOrder`)
+      const {total} = getState().cart
+      await Axios.put(`/api/carts/${cartId}/completedOrder`, {total})
       dispatch(completedCart())
     } catch (error) {
       console.log('Error deleting cart: ', error)

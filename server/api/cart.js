@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const {Order, orderPrd, Product} = require('../db/models')
+const authCheck = require('../authCheckMiddle')
 
 // to get persistant cart
 router.get('/', async (req, res, next) => {
   try {
     let allOrders = await Order.findAll({
       where: {
-        session: req.sessionID,
+        session: req.session.id,
         completed: false
       },
       include: [{model: Product}]
@@ -23,9 +24,8 @@ router.post('/', async (req, res, next) => {
     //if signed in user has open cart, load that cart
     //if they are signed in and dont have an open cart,
     //then create below
-
     let cart = await Order.findOrCreate({
-      where: {session: req.sessionID, completed: false}
+      where: {session: req.session.id, completed: false}
     })
     res.status(201).send(cart[0])
   } catch (error) {
@@ -36,7 +36,8 @@ router.post('/', async (req, res, next) => {
 //if guest => user, now we have a passport.user, then i want to update the above instance
 
 // to add products to the cart
-router.put('/:orderId/addProduct', async (req, res, next) => {
+
+router.put('/:orderId/addProduct', authCheck, async (req, res, next) => {
   try {
     // Find order
     let order = await orderPrd.findOne({
@@ -47,7 +48,9 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
     })
     // Check if there is a row in the orderPrd table where this order is associated with the productId that we're sending in the req.body
     if (order) {
-      await order.update({quantity: order.quantity + 1})
+      await order.update({
+        quantity: order.quantity + 1
+      })
     } else {
       await orderPrd.create({
         productId: req.body.productId,
@@ -68,7 +71,7 @@ router.put('/:orderId/addProduct', async (req, res, next) => {
   }
 })
 
-router.put('/:orderId/deleteProduct', async (req, res, next) => {
+router.put('/:orderId/deleteProduct', authCheck, async (req, res, next) => {
   try {
     let order = await orderPrd.findOne({
       where: {orderId: req.params.orderId, productId: req.body.productId}
@@ -90,7 +93,7 @@ router.put('/:orderId/deleteProduct', async (req, res, next) => {
   }
 })
 
-router.put('/:orderId/editProdQuantity', async (req, res, next) => {
+router.put('/:orderId/editProdQuantity', authCheck, async (req, res, next) => {
   try {
     let order = await orderPrd.findOne({
       where: {orderId: req.params.orderId, productId: req.body.productId}
@@ -113,17 +116,18 @@ router.put('/:orderId/editProdQuantity', async (req, res, next) => {
 })
 
 // for when user has placed order - edit status of order route
-router.put('/:orderId/completedOrder', async (req, res, next) => {
+router.put('/:orderId/completedOrder', authCheck, async (req, res, next) => {
   try {
     let order = await Order.findByPk(req.params.orderId)
     if (order) {
       if (req.user) {
         await order.update({
           userId: req.user.id,
-          completed: true
+          completed: true,
+          total: req.body.total
         })
       } else {
-        await order.update({completed: true})
+        await order.update({completed: true, total: req.body.total})
       }
       res.status(202).send('completed')
     } else {
