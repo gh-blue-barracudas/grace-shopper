@@ -1,8 +1,8 @@
 const router = require('express').Router()
+require('../../secrets')
 const {User, Order} = require('../db/models')
 module.exports = router
-const stripe = require('stripe')('sk_test_tjWlFFD447mw8htkrmXiorw3009wcWw6Wt')
-
+const stripe = require('stripe')(process.env.STRIPE_TEST)
 const uuid = require('uuid/v4')
 
 router.get('/', async (req, res, next) => {
@@ -93,7 +93,7 @@ router.post('/checkout', async (req, res, next) => {
   let error
   let status
   try {
-    const {product, token} = req.body
+    const {product, addresses, token} = req.body
 
     console.log('this is the req.body:', req.body)
     const customer = await stripe.customers.create({
@@ -111,16 +111,37 @@ router.post('/checkout', async (req, res, next) => {
         shipping: {
           name: token.card.name,
           address: {
-            line1: token.card.address_line1,
-            line2: token.card.address_line2,
-            city: token.card.address_city,
-            country: token.card.address_country,
-            postal_code: token.card.address_zip
+            line1: addresses.shipping_address_line1,
+            line2: addresses.shipping_address_line2,
+            city: addresses.shipping_address_city,
+            country: addresses.shipping_address_country,
+            postal_code: addresses.shipping_address_zip
           }
         }
       },
       {
         idempotency_key
+      }
+    )
+    await User.update(
+      {
+        billingAddress1: addresses.billing_address_line1,
+        billingAddress2: addresses.billing_address_line2,
+        billingCity: addresses.billing_address_city,
+        billingState: addresses.billing_address_state,
+        billingZip: addresses.billing_address_zip,
+        shippingAddress1: addresses.shipping_address_line1,
+        shippingAddress2: addresses.shipping_address_line2,
+        shippingCity: addresses.shipping_address_city,
+        shippingState: addresses.shipping_address_state,
+        shippingZip: addresses.shipping_address_zip
+      },
+      {
+        where: {
+          email: token.email
+        },
+        returning: true,
+        plain: true
       }
     )
     status = 'success'

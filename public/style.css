@@ -20,6 +20,12 @@ h2 {
   font-weight: 100;
 }
 
+h3 {
+  font-family: ‘Roboto’, sans-serif;
+  color: white;
+  font-weight: 100;
+}
+
 a {
   font-family: ‘Roboto’, sans-serif;
   text-decoration: none;
@@ -58,7 +64,7 @@ nav a {
   align-items: center;
   width: 100%;
   bottom: 0;
-  height: 120px;
+  height: 10vh;
 }
 
 form div {
@@ -142,7 +148,7 @@ i {
 }
 
 .container h1 {
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'Pattaya';
   position: absolute;
   color: #d0c9ff;
   font-size: 80px;
@@ -153,6 +159,16 @@ i {
   transform: translate(-50%, -50%);
 }
 
+.container h5 {
+  font-family: 'Poiret One', serif;
+  position: absolute;
+  color: #d0c9ff;
+  font-size: 1.39vw;
+  font-weight: 100;
+  top: 10%;
+  right: -3%;
+  transform: translate(-50%, -50%);
+}
 /* AUTH FORMS */
 
 #auth_form_parent {
@@ -460,6 +476,7 @@ select {
   margin-top: 0;
   color: aliceblue;
   border-bottom: white;
+  margin-bottom: 200px;
 }
 
 .orderContainer {
@@ -551,6 +568,7 @@ img:hover {
 
 .userHome {
   text-align: center;
+  margin-bottom: 200px;
 }
 
 .userHome h1 {
@@ -566,4 +584,11 @@ img:hover {
 
 .userHome img {
   height: 40vh;
+}
+
+.cardButton {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20vw;
 }
