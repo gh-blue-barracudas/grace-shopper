@@ -100,8 +100,9 @@ const startListening = () => {
     console.log(`Mixing it up on port ${PORT}`)
   )
 
+  const config = {pingTimeout: 60000}
   // set up our socket control center
-  const io = socketio(server)
+  const io = socketio(server, config)
   require('./socket')(io)
 }
 
