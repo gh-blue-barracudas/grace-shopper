@@ -11,7 +11,7 @@ import {updateUserThunk} from '../store/user'
  * COMPONENT
  */
 
-class UserHome extends Component {
+export class UserHome extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -141,11 +141,11 @@ const mapDispatchToProps = dispatch => ({
   updateUserThunk: userInfo => dispatch(updateUserThunk(userInfo))
 })
 
-export default connect(mapState, mapDispatchToProps)(UserHome)
-
 /**
  * PROP TYPES
  */
 UserHome.propTypes = {
   email: PropTypes.string
 }
+
+export default connect(mapState, mapDispatchToProps)(UserHome)
