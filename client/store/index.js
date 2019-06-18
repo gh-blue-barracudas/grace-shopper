@@ -15,7 +15,11 @@ const reducer = combineReducers({
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, middleware)
+
+const store =
+  process.env.NODE_ENV === 'production'
+    ? createStore(reducer, applyMiddleware(thunkMiddleware))
+    : createStore(reducer, middleware)
 
 export default store
 export * from './user'
