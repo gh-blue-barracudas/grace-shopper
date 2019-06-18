@@ -24,7 +24,7 @@ describe('<UserHome /> component', () => {
     expect(userHomeWrapper.find('h2').text()).to.be.equal('Account Information')
   })
 
-  it('has a `email` field initialized on state', () => {
-    expect(userHomeWrapper.state().email).to.be.a('undefined')
+  it('has a `email` field initialized on state and is a string', () => {
+    expect(userHomeWrapper.state().email).to.be.a('string')
   })
 })
