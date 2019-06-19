@@ -31,7 +31,7 @@ function Stripe(props) {
         <h1>CHECK OUT</h1>
       </div>
       <div>
-        <h3>ORDER REVIEW</h3>
+        <h3 className="ordReview">ORDER REVIEW</h3>
         <div className="orderContainer">
           <table className="orderTable">
             <thead>
@@ -57,7 +57,7 @@ function Stripe(props) {
       </div>
       <div className="total_parent">
         <div>
-          <p>TOTAL: ${props.total}.00</p>
+          <p className="totalTxt">TOTAL: ${props.total}.00</p>
           <div>
             <StripeCheckout
               name="Grace Shopper"
@@ -67,6 +67,9 @@ function Stripe(props) {
               billingAddress
               shippingAddress
               amount={props.total * 100}
+              style={{
+                width: '15vw'
+              }}
             />
           </div>
         </div>

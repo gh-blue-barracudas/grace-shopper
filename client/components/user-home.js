@@ -52,75 +52,78 @@ export class UserHome extends Component {
 
     return (
       <div className="userHome">
-        <h1>Welcome, Dreamer </h1>
-        <img src="https://www.success.com/wp-content/uploads/legacy/sites/default/files/main/articles/inspiringquotesaboutbeingadreamer.jpg" />
-        <h2>Account Information</h2>
-        <Fab aria-label="Edit" onClick={this.handleClick}>
-          <Icon>edit_icon</Icon>
-        </Fab>
-        {this.state.editStatus ? (
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <div className="field_parent">
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  name="firstName"
-                  type="text"
-                  required
-                  title="First Name Required"
-                  value={this.state.firstName}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field_parent">
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  name="lastName"
-                  type="text"
-                  required
-                  title="Last Name Required"
-                  value={this.state.lastName}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field_parent">
-                <label htmlFor="email">Email</label>
-                <input
-                  name="email"
-                  type="text"
-                  required
-                  title="E-mail Required"
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div id="auth_button_error_parent">
-                <div id="auth_button">
-                  <button type="submit">Submit</button>
+        <div id="userHomeInfo">
+          <h1>Welcome, Dreamer </h1>
+          <h2>Account Information</h2>
+          <Fab aria-label="Edit" onClick={this.handleClick}>
+            <Icon>edit_icon</Icon>
+          </Fab>
+
+          {this.state.editStatus ? (
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <div className="field_parent">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    name="firstName"
+                    type="text"
+                    required
+                    title="First Name Required"
+                    value={this.state.firstName}
+                    onChange={this.handleChange}
+                  />
                 </div>
-              </div>
-            </form>
-          </div>
-        ) : (
-          <div>
-            <h3>
-              Name: {firstName} {lastName}
-            </h3>
-            <h3>Email: {email}</h3>
-          </div>
-        )}
-        <Link to="/orderHistory">
-          <Button
-            style={{
-              opacity: '50%',
-              backgroundColor: '#fff2ab',
-              marginTop: '20px',
-              width: '15vw'
-            }}
-          >
-            Order History
-          </Button>
-        </Link>
+                <div className="field_parent">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    name="lastName"
+                    type="text"
+                    required
+                    title="Last Name Required"
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="field_parent">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    name="email"
+                    type="text"
+                    required
+                    title="E-mail Required"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div id="auth_button_error_parent">
+                  <div id="user_button">
+                    <button type="submit">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          ) : (
+            <div>
+              <h3>
+                Name: {firstName} {lastName}
+              </h3>
+              <h3>Email: {email}</h3>
+            </div>
+          )}
+          <Link to="/orderHistory">
+            <Button
+              style={{
+                opacity: '50%',
+                backgroundColor: '#fff2ab',
+                marginTop: '20px',
+                width: '15vw'
+              }}
+            >
+              Order History
+            </Button>
+          </Link>
+        </div>
+        {/* <img src="https://www.success.com/wp-content/uploads/legacy/sites/default/files/main/articles/inspiringquotesaboutbeingadreamer.jpg" /> */}
       </div>
     )
   }

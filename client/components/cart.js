@@ -43,7 +43,7 @@ class Cart extends Component {
           </div>
           <div className="orderContainer">
             <table className="orderTable">
-              <thead>
+              <thead id="cart_titles">
                 <tr>
                   <th>PRODUCT</th>
                   <th>PRICE</th>
@@ -77,7 +77,7 @@ class Cart extends Component {
                     </td>
                     <td>
                       <img
-                        src="https://img.icons8.com/plasticine/2x/cancel.png"
+                        src="https://i.imgur.com/jpBCA9A.png"
                         onClick={() =>
                           this.handleClick(this.props.id, cartItem.id)
                         }
@@ -91,13 +91,13 @@ class Cart extends Component {
           </div>
           <div>
             <div className="total">
-              <p>TOTAL: ${this.props.total}.00</p>
+              <p className="totalTxt">TOTAL: ${this.props.total}.00</p>
             </div>
             <div className="buttonUI">
               <Button
                 style={{
                   opacity: '50%',
-                  backgroundColor: '#fff2ab',
+                  backgroundColor: '#FFCFBC',
                   marginTop: '20px',
                   width: '15vw'
                 }}
